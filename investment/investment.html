@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cryptocurrency Prices</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link rel="stylesheet" href="../styles/styles.css">
+    <link rel="stylesheet" href="investment.css">
+</head>
+
+<body>
+    <nav>
+        <ul class="border">
+            <li><a href="../index.html"><span class="material-symbols-outlined">home</span></a>
+                <div class="hovertext">Home</div>
+            </li>
+            <li><a href="../membership/membership.html"><span class="material-symbols-outlined">payments</span></a>
+                <div class="hovertext">Membership</div>
+            </li>
+            <li><a href="../membership/membership.html"><span class="material-symbols-outlined">how_to_reg</span></a>
+                <div class="hovertext">Registration</div>
+            </li>
+            <li class="news">
+                <a href="../news/news.html" id="news"><span class="material-symbols-outlined">
+                        breaking_news_alt_1
+                    </span></a>
+                <div class="hovertext">News</div>
+            </li>
+            <li class="investment">
+                <a href="../investment/investment.html" id="investment" class="active"><span
+                        class="material-symbols-outlined">
+                        psychology_alt
+                    </span></a>
+                <div class="hovertext">Investment</div>
+            </li>
+            <li class="coins">
+                <a href="../coins/coins.html" id="coin"><span
+                        class="material-symbols-outlined">monetization_on</span></a>
+                <div class="hovertext">Coins</div>
+                <div class="coin-content">
+                    <a href="https://www.tradingview.com/chart/hVd0XUIW/?symbol=BINANCE%3ABTCUSDTPERP"
+                        target="_blank">Bitcoin</a>
+                    <a href="https://www.tradingview.com/chart/hVd0XUIW/?symbol=BINANCE%3AETHUSDTPERP"
+                        target="_blank">Ethereum</a>
+                    <a href="https://www.tradingview.com/chart/hVd0XUIW/?symbol=BINANCE%3ALTCUSDTPERP"
+                        target="_blank">Litecoin</a>
+                    <a href="https://www.tradingview.com/chart/hVd0XUIW/?symbol=BINANCE%3AXRPUSDTPERP"
+                        target="_blank">Ripple</a>
+                </div>
+            </li>
+            <li class="contact"><a href="./contact/contact.html"><span
+                        class="material-symbols-outlined">contact_support</span></a>
+                <div class="hovertext">Contact</div>
+            </li>
+        </ul>
+    </nav>
+    <h1>Interested In Investment?</h1>
+    <h2 id="api-content">On Which Coin Do You Want To Invest?</h2>
+
+    <!-- Checkboxes for filtering -->
+    <div id="checkboxes">
+        <label><input type="checkbox" name="filter" value="btc"> Bitcoin</label>
+        <label><input type="checkbox" name="filter" value="eth"> Ethereum</label>
+        <label><input type="checkbox" name="filter" value="doge"> Dogecoin</label>
+        <label><input type="checkbox" name="filter" value="ltc"> Litecoin</label>
+        <label><input type="checkbox" name="filter" value="usdt"> Tether</label>
+        <label><input type="checkbox" name="filter" value="bnb"> Binance Coin</label>
+        <label><input type="checkbox" name="filter" value="usdc"> USD Coin</label>
+        <label><input type="checkbox" name="filter" value="xrp"> Ripple</label>
+        <label><input type="checkbox" name="filter" value="ada"> Cardano</label>
+        <label><input type="checkbox" name="filter" value="matic"> Polygon</label>
+        <label><input type="checkbox" name="filter" value="sol"> Solana</label>
+        <label><input type="checkbox" name="filter" value="dot"> Polkadot</label>
+        <label><input type="checkbox" name="filter" value="shib"> Shiba Inu</label>
+        <label><input type="checkbox" name="filter" value="trx"> Tron</label>
+        <label><input type="checkbox" name="filter" value="avax"> Avalanche</label>
+    </div>
+
+    <table id="api-table">
+        <thead>
+            <tr>
+                <th>Cryptocurrency</th>
+                <th>Price (USDT)</th>
+                <th>Price (BTC)</th>
+                <th>Change (24h)</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+    <script src="investment.js"></script>
+</body>
+
+</html>

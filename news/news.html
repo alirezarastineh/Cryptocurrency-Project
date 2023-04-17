@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cryptocurrency Prices</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link rel="stylesheet" href="../styles/styles.css">
+    <link rel="stylesheet" href="news.css">
+</head>
+
+<body>
+    <nav>
+        <ul class="border">
+            <li><a href="../index.html"><span class="material-symbols-outlined">home</span></a>
+                <div class="hovertext">Home</div>
+            </li>
+            <li><a href="../membership/membership.html"><span class="material-symbols-outlined">payments</span></a>
+                <div class="hovertext">Membership</div>
+            </li>
+            <li><a href="../membership/membership.html"><span class="material-symbols-outlined">how_to_reg</span></a>
+                <div class="hovertext">Registration</div>
+            </li>
+            <li class="news">
+                <a href="news.html" id="news" class="active"><span class="material-symbols-outlined">
+                        breaking_news_alt_1
+                    </span></a>
+                <div class="hovertext">News</div>
+            </li>
+            <li class="investment">
+                <a href="../investment/investment.html" id="investment"><span class="material-symbols-outlined">
+                        psychology_alt
+                    </span></a>
+                <div class="hovertext">Investment</div>
+            </li>
+            <li class="coins">
+                <a href="../coins/coins.html" id="coin"><span
+                        class="material-symbols-outlined">monetization_on</span></a>
+                <div class="hovertext">Coins</div>
+                <div class="coin-content">
+                    <a href="https://www.tradingview.com/chart/hVd0XUIW/?symbol=BINANCE%3ABTCUSDTPERP"
+                        target="_blank">Bitcoin</a>
+                    <a href="https://www.tradingview.com/chart/hVd0XUIW/?symbol=BINANCE%3AETHUSDTPERP"
+                        target="_blank">Ethereum</a>
+                    <a href="https://www.tradingview.com/chart/hVd0XUIW/?symbol=BINANCE%3ALTCUSDTPERP"
+                        target="_blank">Litecoin</a>
+                    <a href="https://www.tradingview.com/chart/hVd0XUIW/?symbol=BINANCE%3AXRPUSDTPERP"
+                        target="_blank">Ripple</a>
+                </div>
+            </li>
+            <li class="contact"><a href="./contact/contact.html"><span
+                        class="material-symbols-outlined">contact_support</span></a>
+                <div class="hovertext">Contact</div>
+            </li>
+        </ul>
+    </nav>
+    <h1>Crypto News</h1>
+    <div id="api-content"></div>
+    <div id="card-container"></div>
+    <table id="crypto-table"></table>
+    <script src="news.js"></script>
+</body>
+
+</html>

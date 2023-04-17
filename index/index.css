@@ -1,0 +1,67 @@
+img {
+    display: block;
+    margin: auto;
+    flex: 0 1 30em;
+    max-width: 30em;
+    height: 30em;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid var(--border-color);
+    box-shadow: 0 20px 20px 0 rgba(0, 0, 0, 0.459), 0 50px 50px 0 rgba(0, 0, 0, 0.288);
+}
+
+cite {
+    font-weight: bold;
+}
+
+h1 {
+    font-size: 46px;
+}
+
+div {
+    font-size: 2.5rem;
+    text-align: center;
+    text-decoration-thickness: auto;
+}
+
+.crypto {
+    font-size: 2.5rem;
+}
+
+.crypto:hover {
+    font-size: 3rem;
+}
+
+a:link,
+a:visited {
+    text-decoration: none;
+}
+
+a:hover {
+    background-color: rgba(131, 96, 96, 0.205);
+    text-decoration: underline;
+}
+
+a:active {
+    color: rgba(211, 6, 6, 0.719);
+}
+
+figcaption {
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+.what {
+    font-size: 2rem;
+    text-align: center;
+    font-weight: bold;
+    text-transform: uppercase;
+    border: 10px solid transparent;
+    padding: 15px;
+    border-image: url(https://www.pngall.com/wp-content/uploads/4/Golden-Border-PNG-HD-Image.png) 50 round;
+}
+
+pre {
+    text-align: center;
+    font-size: 1.2rem;
+}

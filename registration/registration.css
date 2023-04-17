@@ -1,0 +1,127 @@
+fieldset {
+    border-radius: 50px;
+    background-color: rgba(255, 255, 255, 0.281);
+    padding: 20px;
+}
+
+legend {
+    font-size: 1.9rem;
+    text-align: center;
+    margin-bottom: 0.5rem;
+    color: rgb(110, 79, 21);
+}
+
+form {
+    font-size: 1.3rem;
+    margin: auto;
+    padding: auto;
+}
+
+.ex {
+    width: 100;
+    margin: 100;
+    border: 3px solid rgba(146, 75, 9, 0.507);
+    position: sticky;
+    background-color: rgba(255, 255, 255, 0.281);
+}
+
+pre {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    height: 200px;
+}
+
+input[type=text] {
+    width: 50%;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    padding: 12px 20px 12px 40px;
+    transition: width 0.9s ease-in-out;
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.774);
+}
+
+input[type=text]:focus {
+    background-color: rgba(148, 184, 196, 0.589);
+    width: 90%;
+}
+
+input[type=date],
+input[type=time] {
+    width: 50%;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    padding: 12px 20px 12px 40px;
+    text-align: center;
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.774);
+}
+
+textarea {
+    width: 100%;
+    height: 150px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8b7;
+    font-size: 16px;
+    resize: vertical;
+}
+
+select {
+    width: 50%;
+    padding: 16px 20px;
+    border: none;
+    border-radius: 4px;
+    border: 2px solid #ccc;
+    font-size: 16px;
+    text-align: center;
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.774);
+}
+
+input[type=radio],
+input[type=range],
+input[type=checkbox] {
+    cursor: pointer;
+}
+
+label {
+    padding: 12px 12px 12px 0;
+    display: inline-block;
+}
+
+input[type=submit],
+input[type=reset] {
+    background-color: #084aa1;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type=submit]:hover {
+    background-color: #44320bd2;
+}
+
+input[type=reset]:hover {
+    background-color: #44320bd2;
+}
+
+.conditions {
+    color: rgb(192, 25, 25) !important;
+    padding: 1px !important;
+    border: solid black !important; 
+}
+
+
+
+small {
+    line-height: 15px;
+    word-wrap: break-word;
+}

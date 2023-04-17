@@ -1,0 +1,32 @@
+table {
+    border-collapse: collapse;
+    margin: auto;
+    font-size: 1.2rem;
+    width: 100%;
+    border-radius: 50%;
+}
+
+th,
+td {
+    font-size: 1.3rem;
+    ;
+    padding: 10px;
+    border: 2px solid rgba(0, 0, 0, 0.705);
+    text-align: center;
+    background-color: #ac9e9e9d;
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+}
+
+th {
+    font-size: 1.5rem;
+    color: white;
+    background-color: #292525e8;
+    font-weight: bold;
+}
+
+img {
+    max-width: 3em;
+    border-radius: 100%;
+    box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.459), 0 10px 10px 0 rgba(0, 0, 0, 0.288);
+}

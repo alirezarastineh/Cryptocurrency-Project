@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Home</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300&display=swap" rel="stylesheet">
+	<link rel="stylesheet"
+		href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+	<link rel="stylesheet" href="styles/styles.css">
+	<link rel="stylesheet" href="index/index.css">
+	<link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+
+<body>
+	<nav>
+		<ul class="border">
+			<li><a href="index.html" class="active"><span class="material-symbols-outlined">home</span></a>
+				<div class="hovertext">Home</div>
+			</li>
+			<li><a href="./membership/membership.html"><span class="material-symbols-outlined">payments</span></a>
+				<div class="hovertext">Membership</div>
+			</li>
+			<li><a href="./registration/registration.html"><span class="material-symbols-outlined">how_to_reg</span></a>
+				<div class="hovertext">Registration</div>
+			</li>
+			<li class="news">
+				<a href="./news/news.html" id="news"><span class="material-symbols-outlined">
+						breaking_news_alt_1
+					</span></a>
+				<div class="hovertext">News</div>
+			</li>
+			<li class="investment">
+				<a href="./investment/investment.html" id="investment"><span class="material-symbols-outlined">
+						psychology_alt
+					</span></a>
+				<div class="hovertext">Investment</div>
+			</li>
+			<li class="coins">
+				<a href="./coins/coins.html" id="coin"><span
+						class="material-symbols-outlined">monetization_on</span></a>
+				<div class="hovertext">Coins</div>
+				<div class="coin-content">
+					<a href="https://www.tradingview.com/chart/hVd0XUIW/?symbol=BINANCE%3ABTCUSDTPERP"
+						target="_blank">Bitcoin</a>
+					<a href="https://www.tradingview.com/chart/hVd0XUIW/?symbol=BINANCE%3AETHUSDTPERP"
+						target="_blank">Ethereum</a>
+					<a href="https://www.tradingview.com/chart/hVd0XUIW/?symbol=BINANCE%3ALTCUSDTPERP"
+						target="_blank">Litecoin</a>
+					<a href="https://www.tradingview.com/chart/hVd0XUIW/?symbol=BINANCE%3AXRPUSDTPERP"
+						target="_blank">Ripple</a>
+				</div>
+			</li>
+			<li class="contact"><a href="./contact/contact.html"><span
+						class="material-symbols-outlined">contact_support</span></a>
+				<div class="hovertext">Contact</div>
+			</li>
+		</ul>
+	</nav>
+	<section id="home">
+		<h1>Welcome to Cryptocurrency Club</h1>
+		<figure>
+			<div><q><a href="#C1" class="crypto">What is Cryptocurrency?</a></q></div>
+			<img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExNzIyNTBkYzcxMTdlZTEyYzg4NTMxN2I5MjcyNTc4OGYxNTNkMTM2MyZjdD1n/4KFvuA2LmYYVv46CNN/giphy.gif"
+				alt="Image 1" usemap="#bigcoin">
+			<map name="bigcoin">
+				<area shape="circle" coords="221,212,228" alt="BigBitcoin" href="https://cryptonews.com/"
+					target="_blank" onclick="myBigBitcoin()">
+			</map>
+			<figcaption>for <cite>Cryptonews</cite> click on the upper gif!!!</figcaption>
+		</figure>
+		<p id="C1" class="what">Cryptocurrency</p>
+		<pre>
+<q>Cryptocurrency is a digital or virtual currency that uses cryptography for security and operates independently of a central bank.
+The first and most well-known cryptocurrency is Bitcoin, which was created in 2009. Other popular cryptocurrencies include Ethereum,
+Litecoin, and Ripple.</q></pre>
+		<img src="https://www.nasdaq.com/sites/acquia.prod/files/2022/12/07/cryptocurrency-Nuthawut-adobe.jpeg?1130920788"
+			alt="Image 2" usemap="#coin">
+		<map name="coin">
+			<area shape="circle" coords="228,157,89" alt="Zcash" href="https://coinmarketcap.com/currencies/zcash/"
+				target="_blank" onclick="myZcash()">
+			<area shape="circle" coords="113,229,84" alt="Ethereum"
+				href="https://coinmarketcap.com/currencies/ethereum/" target="_blank" onclick="myEthereum()">
+			<area shape="circle" coords="43,324,70" alt="Ripple" href="https://coinmarketcap.com/currencies/xrp/"
+				target="_blank" onclick="myRipple()">
+			<area shape="circle" coords="299,267,90" alt="Litecoin"
+				href="https://coinmarketcap.com/currencies/litecoin/" target="_blank" onclick="myLitecoin()">
+			<area shape="circle" coords="402,174,83" alt="Bitcoin" href="https://coinmarketcap.com/currencies/bitcoin/"
+				target="_blank" onclick="myBitcoin()">
+		</map>
+		<pre>
+<q>of the key features of <sub>cryptocurrencies</sub> is their <sup>decentralized</sup> nature. <i>Instead of being controlled by a central authority,</i><em> such
+as a government or financial institution,</em><b>transactions are recorded on a public ledger called a blockchain.</b>
+This means that users can send and receive funds without the need for intermediaries like banks.</q></pre>
+	</section>
+</body>
+<script>
+	function myBigBitcoin() {
+		alert("You Clicked on the BIG Bitcoin!")
+	}
+	function myBitcoin() {
+		alert("You Clicked on Bitcoin!")
+	}
+	function myEthereum() {
+		alert("You Clicked on Ethereum!")
+	}
+	function myRipple() {
+		alert("You Clicked on Ripple!")
+	}
+	function myLitecoin() {
+		alert("You Clicked on Litecoin!")
+	}
+	function myZcash() {
+		alert("You Clicked on Zcash!")
+	}
+</script>
