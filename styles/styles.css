@@ -138,6 +138,28 @@ h1 {
   position: -webkit-sticky;
   position: sticky;
   top: 0;
+  animation-name: header;
+  animation-duration: 5s;
+  animation-iteration-count: infinite;
+  border-radius: 50px / 15px;
+}
+
+@keyframes header {
+  0% {
+    background-color: rgba(255, 0, 0, 0.308);
+  }
+
+  25% {
+    background-color: rgba(255, 255, 0, 0.336);
+  }
+
+  50% {
+    background-color: rgba(0, 0, 255, 0.342);
+  }
+
+  100% {
+    background-color: rgba(0, 128, 0, 0.349);
+  }
 }
 
 h2 {

@@ -116,7 +116,7 @@ input[type=reset]:hover {
 .conditions {
     color: rgb(192, 25, 25) !important;
     padding: 1px !important;
-    border: solid black !important; 
+    border: solid black !important;
 }
 
 
@@ -124,4 +124,32 @@ input[type=reset]:hover {
 small {
     line-height: 15px;
     word-wrap: break-word;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px black;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
 }

@@ -67,17 +67,17 @@
 			<legend>Sign Up</legend>
 			<form action="../confirmation/confirmation.html" method="get" autocomplete="on"
 				oninput="outcome.value=parseInt(invest.value)+parseInt(income.value)">
-				<label for="name">Name:</label>
+				<label for="name" class="tooltip">Name: <span class="tooltiptext">Your first and last name</span></label>
 				<input type="text" id="name" name="name" placeholder="Muster Mustermann" required autofocus><br>
-				<label for="email">Email:</label>
+				<label for="email" class="tooltip">Email: <span class="tooltiptext">Only Gmail</span></label>
 				<input type="text" id="email" name="email" placeholder="muster@mustermann.com" required><br>
-				<label for="phone">Phone:</label>
+				<label for="phone" class="tooltip">Phone: <span class="tooltiptext">Put a valid Phone Number</span></label>
 				<input type="text" id="phone" name="phone" placeholder="123-456-789"><br>
-				<label for="date">Date:</label>
+				<label for="date" class="tooltip">Date: <span class="tooltiptext">Put a valid Date</span></label>
 				<input type="date" id="date" name="date" required><br>
-				<label for="time">Time:</label>
+				<label for="time" class="tooltip">Time: <span class="tooltiptext">Only afternoons</span></label>
 				<input type="time" id="time" name="time" required><br>
-				<label for="party-size">Party Size:</label>
+				<label for="party-size" class="tooltip">Party Size: <span class="tooltiptext">Max. 5 persons</span></label>
 				<select id="party-size" name="party-size">
 					<option value="1">1 person</option>
 					<option value="2">2 people</option>
@@ -85,7 +85,7 @@
 					<option value="4">4 people</option>
 					<option value="5">5 people</option>
 				</select><br>
-				<label>Trade Preferences:</label><br>
+				<label class="tooltip">Trade Preferences: <span class="tooltiptext">Are you a trader or holder?</span></label><br>
 				<input type="radio" id="trader" name="preference" value="Trader" onclick="myPreference()" required>
 				<label for="Trader">Trader</label><br>
 				<input type="radio" id="holder" name="preference" value="Holder" onclick="myPreference()" required>
