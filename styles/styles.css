@@ -7,7 +7,6 @@
   background-repeat: repeat;
   position: relative;
   background-origin: border-box;
-
 }
 
 * {
@@ -39,6 +38,8 @@ ul.border {
   margin: auto;
   box-sizing: border-box;
   padding: 7px;
+  display: flex;
+  justify-content: space-around;
 }
 
 li {
@@ -48,6 +49,12 @@ li {
   font-size: 1.2rem;
 }
 
+@media screen and (max-width: 1000px) {
+  li {
+    float: none;
+    width: 100%;
+  }
+}
 
 li a,
 #news {
@@ -62,6 +69,7 @@ li a:hover,
 .news:hover #news {
   background-color: #503838;
   transition: 1.5s;
+  border-radius: 50px / 15px;
 }
 
 li.coins,
@@ -103,7 +111,10 @@ li.coins,
   background-color: #812b09de;
   transition: 1.2s;
   transition-timing-function: ease-in-out;
-  transform: rotate(360deg)
+  transform: rotate(360deg);
+  display: flex;
+  justify-content: space-between;
+  border-radius: 50px / 15px;
 }
 
 .hovertext {

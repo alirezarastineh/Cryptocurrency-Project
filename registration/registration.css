@@ -103,6 +103,7 @@ input[type=reset] {
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    transition: all 0.5s;
 }
 
 input[type=submit]:hover {
@@ -124,6 +125,8 @@ input[type=reset]:hover {
 small {
     line-height: 15px;
     word-wrap: break-word;
+    color: rgb(255, 255, 255);
+    font-size: 1.1rem;
 }
 
 .tooltip {
@@ -152,4 +155,11 @@ small {
 .tooltip:hover .tooltiptext {
     visibility: visible;
     opacity: 1;
+}
+
+.mask1 {
+    max-width: 100%;
+    background: url(https://vial-voice-files-prod.fra1.digitaloceanspaces.com/files/28ddca8a-a504-4cda-a8f2-cbb8783b44d9.png) no-repeat;
+    -webkit-mask-image: linear-gradient(black, transparent);
+    mask-image: linear-gradient (black, transparent);
 }
