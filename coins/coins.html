@@ -61,8 +61,30 @@
             </li>
         </ul>
     </nav>
-    <h1>Real-Time Prices</h1>
-    <table id="crypto-table"></table>
+    <h1>Real-Time Prices For Top 100 Coins</h1>
+    <div class="filters">
+        <label for="search">Search:</label>
+        <input type="text" id="search" />
+      
+        <label for="price-filter">Price:</label>
+        <select id="price-filter">
+          <option value="all">All</option>
+          <option value="less">Less than $10</option>
+          <option value="greater">Greater than $10</option>
+          <option value="1usd">Stable Coin</option>
+        </select>
+      
+        <label for="change-filter">24h Change:</label>
+        <select id="change-filter">
+          <option value="all">All</option>
+          <option value="less">Less than 0%</option>
+          <option value="greater">Greater than 0%</option>
+          <option value="nothing">Almost no changes</option>
+        </select>
+      </div>
+      
+      <table id="crypto-table"></table>
+      
     <script src="coins.js"></script>
 </body>
 
