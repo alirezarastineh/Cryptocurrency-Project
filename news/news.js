@@ -1,35 +1,48 @@
-async function main() {
-    async function getNews() {
-        return (await fetch("https://min-api.cryptocompare.com/data/v2/news/?lang=EN")).json().then(({ Data }) => Data);
-    }
+const endpointUrl =
+    "https://min-api.cryptocompare.com/data/v2/news/?lang=EN";
+const container = document.getElementById("cards-container");
 
-    async function createCard(article) {
-        const card = document.createElement("div");
-        card.className = "card";
-        card.innerHTML = `
-        <h2>${article.title}</h2>
-        <p>${article.body.substring(0, 200)}...</p>
-        <span class="show-more">Show more</span>
-        <span class="show-more" style="display:none">Show less</span>
-        `;
-        const [summary, showMore, showLess] = card.querySelectorAll("p, .show-more");
-        const toggleSummary = (display) => {
-            summary.textContent = display === "full" ? article.body : article.body.substring(0, 200) + "...";
-            showMore.style.display = display === "full" ? "none" : "inline";
-            showLess.style.display = display === "full" ? "inline" : "none";
-        };
-        showMore.addEventListener("click", () => toggleSummary("full"));
-        showLess.addEventListener("click", () => toggleSummary("summary"));
-        return card;
-    }
+// Fetch news data from the API and create cards
+fetch(endpointUrl)
+    .then((response) => response.json())
+    .then((data) => {
+        const news = data.Data;
 
-    async function renderCards() {
-        const cardContainer = document.getElementById("card-container");
-        (await getNews()).forEach(async (article) => {
-            cardContainer.appendChild(await createCard(article));
+        news.forEach((article) => {
+            const card = createCard(article);
+            container.appendChild(card);
         });
-    }
+    })
+    .catch((error) => console.error(error));
 
-    renderCards();
+// Helper function to create a card element
+function createCard(article) {
+    const card = document.createElement("div");
+    card.classList.add("card");
+
+    const title = document.createElement("h2");
+    title.textContent = article.title;
+    card.appendChild(title);
+
+    const description = document.createElement("p");
+    description.textContent = article.body;
+    card.appendChild(description);
+
+    const readMore = document.createElement("span");
+    readMore.classList.add("read-more");
+    readMore.textContent = "Show more";
+    card.appendChild(readMore);
+
+    // Add click event listener to the "Show more" button
+    readMore.addEventListener("click", () => {
+        if (readMore.textContent === "Show more") {
+            description.textContent = article.body + article.body;
+            readMore.textContent = "Show less";
+        } else {
+            description.textContent = article.body;
+            readMore.textContent = "Show more";
+        }
+    });
+
+    return card;
 }
-main();

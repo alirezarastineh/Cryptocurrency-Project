@@ -33,69 +33,77 @@ const formatPrice = (price) => {
 
 const updateTable = async () => {
     const data = await fetchCryptoPrices();
-    table.innerHTML = `
-      <thead>
-        <tr>
-          <th>Symbol</th>
-          <th>Logo</th>
-          <th>Price</th>
-          <th>24h Change</th>
-          <th>Market Cap</th>
-          <th>Volume (24h)</th>
-        </tr>
-      </thead>
-      <tbody>
-        ${data
-            .filter((coin) => {
-                console.log("priceFilter:", priceFilter);
-                console.log("changeFilter:", changeFilter);
-                console.log("coin.current_price:", coin.current_price);
-                console.log("coin.price_change_percentage_24h:", coin.price_change_percentage_24h);
+    const tableBody = document.createElement("tbody");
+    data
+        .filter((coin) => {
+            if (priceFilter === "less" && coin.current_price > 10) {
+                return false;
+            }
+            if (priceFilter === "greater" && coin.current_price <= 10) {
+                return false;
+            }
+            if (priceFilter === "1usd" && Math.abs(coin.current_price - 1.00) > 0.01) {
+                return false;
+            }
+            if (changeFilter === "less" && coin.price_change_percentage_24h > 0) {
+                return false;
+            }
+            if (changeFilter === "greater" && coin.price_change_percentage_24h <= 0) {
+                return false;
+            }
+            if (changeFilter === "nothing" && Math.abs(coin.price_change_percentage_24h) > 0.2) {
+                return false;
+            }
+            if (searchQuery && !coin.name.toLowerCase().includes(searchQuery.toLowerCase())) {
+                return false;
+            }
+            return true;
+        })
+        .forEach((coin) => {
+            const row = document.createElement("tr");
+            const nameCell = document.createElement("td");
+            nameCell.innerText = coin.name;
+            row.appendChild(nameCell);
 
-                if (priceFilter === "less" && coin.current_price > 10) {
-                    return false;
-                }
-                if (priceFilter === "greater" && coin.current_price <= 10) {
-                    return false;
-                }
-                if (priceFilter === "1usd" && Math.abs(coin.current_price - 1.00) > 0.01) {
-                    return false;
-                }
-                if (changeFilter === "less" && coin.price_change_percentage_24h > 0) {
-                    return false;
-                }
-                if (changeFilter === "greater" && coin.price_change_percentage_24h <= 0) {
-                    return false;
-                }
-                if (changeFilter === "nothing" && Math.abs(coin.price_change_percentage_24h) > 0.5) {
-                    return false;
-                }
-                if (searchQuery && !coin.name.toLowerCase().includes(searchQuery.toLowerCase())) {
-                    return false;
-                }
-                return true;
-            })
+            const imgCell = document.createElement("td");
+            const img = document.createElement("img");
+            img.src = coin.image;
+            img.alt = coin.name;
+            imgCell.appendChild(img);
+            row.appendChild(imgCell);
 
-            .map(
-                (coin) => `
-          <tr>
-            <td>${coin.name}</td>
-            <td><img src="${coin.image}" alt="${coin.name}"></td>
-            <td>${formatPrice(coin.current_price)}</td>
-            <td>${coin.price_change_percentage_24h.toFixed(2)}%</td>
-            <td>${formatPrice(coin.market_cap)}</td>
-            <td>${formatPrice(coin.total_volume)}</td>
-          </tr>
-        `
-            )
-            .join("")}
-      </tbody>
-    `;
+            const priceCell = document.createElement("td");
+            priceCell.innerText = formatPrice(coin.current_price);
+            row.appendChild(priceCell);
+
+            const changeCell = document.createElement("td");
+            changeCell.innerText = `${coin.price_change_percentage_24h.toFixed(2)}%`;
+            row.appendChild(changeCell);
+
+            const marketCapCell = document.createElement("td");
+            marketCapCell.innerText = formatPrice(coin.market_cap);
+            row.appendChild(marketCapCell);
+
+            const volumeCell = document.createElement("td");
+            volumeCell.innerText = formatPrice(coin.total_volume);
+            row.appendChild(volumeCell);
+
+            tableBody.appendChild(row);
+        });
+
+    const table = document.querySelector("table");
+    const tbody = table.querySelector("tbody");
+    if (tbody) {
+        table.replaceChild(tableBody, tbody);
+    } else {
+        table.appendChild(tableBody);
+    }
 };
 
 
+
 updateTable();
-setInterval(updateTable, 30000);
+setInterval(updateTable, 10000);
 
 document.getElementById("price-filter").addEventListener("change", (event) => {
     priceFilter = event.target.value;

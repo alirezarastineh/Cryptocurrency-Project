@@ -62,29 +62,39 @@
         </ul>
     </nav>
     <h1>Real-Time Prices For Top 100 Coins</h1>
-    <div class="filters">
-        <label for="search">Search:</label>
-        <input type="text" id="search" />
-      
-        <label for="price-filter">Price:</label>
-        <select id="price-filter">
-          <option value="all">All</option>
-          <option value="less">Less than $10</option>
-          <option value="greater">Greater than $10</option>
-          <option value="1usd">Stable Coin</option>
-        </select>
-      
-        <label for="change-filter">24h Change:</label>
-        <select id="change-filter">
-          <option value="all">All</option>
-          <option value="less">Less than 0%</option>
-          <option value="greater">Greater than 0%</option>
-          <option value="nothing">Almost no changes</option>
-        </select>
-      </div>
-      
-      <table id="crypto-table"></table>
-      
+    <label for="price-filter">Price:</label>
+    <select id="price-filter">
+        <option value="all">All</option>
+        <option value="less">Less than $10</option>
+        <option value="greater">Greater than or equal to $10</option>
+        <option value="1usd">Around $1 USD</option>
+    </select>
+
+    <label for="change-filter">Change:</label>
+    <select id="change-filter">
+        <option value="all">All</option>
+        <option value="less">Losses only</option>
+        <option value="greater">Gains only</option>
+        <option value="nothing">Little change</option>
+    </select>
+
+    <label for="search">Search:</label>
+    <input type="text" id="search" placeholder="Search by symbol" />
+
+    <table id="crypto-table">
+        <thead>
+            <tr>
+                <th>Symbol</th>
+                <th>Logo</th>
+                <th>Price</th>
+                <th>24h Change</th>
+                <th>Market Cap</th>
+                <th>Volume (24h)</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
     <script src="coins.js"></script>
 </body>
 

@@ -1,17 +1,49 @@
 const apiTable = document.getElementById('api-table');
 const checkboxes = document.querySelectorAll('input[name="filter"]');
 
-const populateTable = () => {
-    apiTable.querySelector('tbody').innerHTML = '';
-    const symbols = [...checkboxes].filter(({ checked }) => checked).map(({ value }) => value.toUpperCase());
-    const apiUrl = `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${symbols.join(',')}&tsyms=USDT,BTC`;
-    fetch(apiUrl).then(response => response.json()).then(({ DISPLAY: data }) => Object.entries(data).forEach(([symbol, { USDT, BTC }]) => {
-        const row = apiTable.querySelector('tbody').insertRow();
-        [symbol, USDT.PRICE, BTC.PRICE, [USDT.CHANGE24HOUR, USDT.CHANGEPCT24HOUR].join(" ")].forEach(v => row.insertCell().textContent = v);
-        row.querySelector('td:last-child').classList.add(USDT.CHANGE24HOUR > 0 ? 'positive' : 'negative');
-    })).catch(console.error);
+const populateTable = async () => {
+    const selectedSymbols = [];
+    for (const cb of checkboxes) {
+        if (cb.checked) {
+            selectedSymbols.push(cb.value.toUpperCase());
+        }
+    }
+    const apiUrl = `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${selectedSymbols.join(',')}&tsyms=USDT,BTC`;
+    try {
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+        const tbody = apiTable.querySelector('tbody');
+        tbody.innerHTML = '';
+        for (const symbol of selectedSymbols) {
+            const { USDT, BTC } = data.DISPLAY[symbol];
+            const row = document.createElement('tr');
+            const symbolCell = document.createElement('td');
+            symbolCell.textContent = symbol;
+            row.appendChild(symbolCell);
+            const priceUSDTCell = document.createElement('td');
+            priceUSDTCell.textContent = USDT.PRICE;
+            row.appendChild(priceUSDTCell);
+            const priceBTCCell = document.createElement('td');
+            priceBTCCell.textContent = BTC.PRICE;
+            row.appendChild(priceBTCCell);
+            const changeCell = document.createElement('td');
+            const changeText = `${USDT.CHANGE24HOUR} ${USDT.CHANGEPCT24HOUR}`;
+            changeCell.textContent = changeText;
+            if (USDT.CHANGE24HOUR > 0) {
+                changeCell.classList.add('positive');
+            } else {
+                changeCell.classList.add('negative');
+            }
+            row.appendChild(changeCell);
+            tbody.appendChild(row);
+        }
+    } catch (error) {
+        console.error(error);
+    }
 };
 
-checkboxes.forEach(c => c.addEventListener('change', populateTable));
+for (const cb of checkboxes) {
+    cb.addEventListener('change', populateTable);
+}
 
 populateTable();
