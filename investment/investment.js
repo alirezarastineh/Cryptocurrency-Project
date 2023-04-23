@@ -19,19 +19,19 @@ function populateTable() {
             tbody.textContent = ''; // clears out the previous table contents
             for (let i = 0; i < selectedSymbols.length; i++) { // loops through all selected symbols
                 const symbol = selectedSymbols[i]; // stores the current symbol in a constant variable
-                const USDT = data.DISPLAY[symbol].USDT; // stores USD price data for the current symbol in a constant variable
+                const USDT = data.DISPLAY[symbol].USDT; // stores USDT price data for the current symbol in a constant variable
                 const BTC = data.DISPLAY[symbol].BTC; // stores BTC price data for the current symbol in a constant variable
                 const row = document.createElement('tr'); // creates a new row element
                 const symbolCell = document.createElement('td'); // creates a new cell element for displaying symbol
                 symbolCell.textContent = symbol; // sets the value of the symbol cell to the current symbol
-                row.appendChild(symbolCell); // adds the symbol cell to the new row
-                const priceUSDTCell = document.createElement('td'); // creates a new cell element for displaying USD price
-                priceUSDTCell.textContent = USDT.PRICE; // sets the value of the USD price cell to the current USD price value
-                row.appendChild(priceUSDTCell); // adds the USD price cell to the new row
-                const priceBTCCell = document.createElement('td'); // creates a new cell element for displaying BTC price
-                priceBTCCell.textContent = BTC.PRICE; // sets the value of the BTC price cell to the current BTC price value
-                row.appendChild(priceBTCCell); // adds the BTC price cell to the new row
-                const changeCell = document.createElement('td'); // creates a new cell element for displaying 24-hour price change and percentage change
+                row.appendChild(symbolCell);
+                const priceUSDTCell = document.createElement('td');
+                priceUSDTCell.textContent = USDT.PRICE;
+                row.appendChild(priceUSDTCell);
+                const priceBTCCell = document.createElement('td');
+                priceBTCCell.textContent = BTC.PRICE;
+                row.appendChild(priceBTCCell);
+                const changeCell = document.createElement('td');
                 const changeText = USDT.CHANGE24HOUR + ' ' + USDT.CHANGEPCT24HOUR; // stores the text content for the change cell in a constant variable
                 changeCell.textContent = changeText; // sets the value of the change cell to the stored text content
                 if (USDT.CHANGE24HOUR > 0) { // checks if the 24-hour price change is positive
