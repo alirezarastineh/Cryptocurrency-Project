@@ -9,6 +9,7 @@ function populateTable() {
     for (let i = 0; i < checkboxes.length; i++) { // loops through all checkboxes that have been retrieved from the HTML document
         if (checkboxes[i].checked) { // checks if the current checkbox is checked
             selectedSymbols.push(checkboxes[i].value.toUpperCase()); // adds the value of the current checkbox to the selectedSymbols array in uppercase
+            // it has to be uppercase because the API
         }
     }
     const apiUrl = "https://min-api.cryptocompare.com/data/pricemultifull?fsyms=" + selectedSymbols.join(',') + "&tsyms=USDT,BTC"; // creates an API URL for fetching crypto data based on the selected symbols
