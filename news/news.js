@@ -25,26 +25,24 @@ function createCard(article) {
     readMore.appendChild(document.createTextNode("Show more"));
     card.appendChild(readMore);
 
-
-
-    // Adds a click event listener to the "Show more" link element created in previous function
-    readMore.addEventListener("click", function () {
-
-        // If the "Show more" text content is present, add article body twice and change readMore text to "Show less"
+    function toggleText() {
         if (readMore.textContent === "Show more") {
-            description.appendChild(document.createTextNode(article.body + article.body));
+            description.innerText += article.body;
             readMore.textContent = "Show less";
-
-            // If "Show less" text content is present, revert back to showing only one instance of article body and change readMore text back to "Show more"
         } else {
-            description.appendChild(document.createTextNode(article.body));
+            description.innerText = article.body;
             readMore.textContent = "Show more";
         }
-    });
+    }
+
+    // Remove previous event listener before adding a new one
+    readMore.removeEventListener("click", toggleText);
+    readMore.addEventListener("click", toggleText);
 
     // Returns completed card element with title, body/description and a "Show more/Show less" link
     return card;
 }
+
 
 
 // Defines a function called "createCards" which takes in an argument of "news"

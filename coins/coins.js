@@ -163,7 +163,7 @@ const updateTable = async () => {
 
 updateTable(); // We are calling the `updateTable()` function immediately.
 
-setInterval(updateTable, 120000); // We schedule the `updateTable()` function to run repeatedly after every 10 seconds.
+setInterval(updateTable, 10000); // We schedule the `updateTable()` function to run repeatedly after every 10 seconds.
 
 
 // Adds an event listener for a change in price filter element and invokes updateTable function
