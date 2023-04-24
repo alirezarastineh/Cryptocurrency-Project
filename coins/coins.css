@@ -30,3 +30,21 @@ img {
     border-radius: 100%;
     box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.459), 0 10px 10px 0 rgba(0, 0, 0, 0.288);
 }
+
+
+select,
+input[type=text] {
+
+    padding: 5px 5px;
+    border: none;
+    border-radius: 4px;
+    border: 2px solid #ccc;
+    font-size: 16px;
+    text-align: center;
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.774);
+}
+
+label {
+    font-size: 20px;
+}
