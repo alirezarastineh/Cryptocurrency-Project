@@ -1,4 +1,3 @@
-
 //  this code retrieves news data from the API endpoint and creates individual cards for each article on the webpage. If there are any errors, it will log them to the console.
 // Uses the fetch() method to make a request to the API specified in "endpointUrl" and returns a promise object 
 async function fetchData() {
@@ -26,7 +25,6 @@ function createCard(article) {
     card.appendChild(title);
 
     const image = document.createElement("img");
-    image.className = "article-image";
     image.src = article.imageurl;
     card.appendChild(image);
 
@@ -37,7 +35,6 @@ function createCard(article) {
 
     // Creates a span element for read more link, adds "Show More" text node, and appends it to card element
     const readMore = document.createElement("span");
-    readMore.className = "read-more";
     readMore.appendChild(document.createTextNode("Show more"));
     card.appendChild(readMore);
 
@@ -76,12 +73,8 @@ function createCards(news) {
 
     // Iterates through each article within the news array using forEach method
     news.forEach(function (article) {
-
-        // Calls the createCard function and passes in individual article as argument, then assigns result to constant variable "card"
-        const card = createCard(article);
-
         // Appends the card to the fragment 
-        fragment.appendChild(card);
+        fragment.appendChild(createCard(article));
     });
 
     // Appends the entire fragment (now containing all cards created) to the container element on the HTML page 
