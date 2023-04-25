@@ -18,3 +18,9 @@
   color: #007bff;
   cursor: pointer;
 }
+
+.article-image {
+  max-width: 5rem;
+  border-radius: 70%;
+  box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.459), 0 10px 10px 0 rgba(0, 0, 0, 0.288);
+}

@@ -1,6 +1,17 @@
-// Defines the API endpoint URL to retrieve cryptocurrency news articles and identifies the HTML element container for displaying articles
-const endpointUrl = "https://min-api.cryptocompare.com/data/v2/news/?lang=EN";
-const container = document.getElementById("cards-container");
+
+//  this code retrieves news data from the API endpoint and creates individual cards for each article on the webpage. If there are any errors, it will log them to the console.
+// Uses the fetch() method to make a request to the API specified in "endpointUrl" and returns a promise object 
+async function fetchData() {
+    try {
+        const response = await fetch('https://min-api.cryptocompare.com/data/v2/news/?lang=EN');
+        const data = await response.json();
+        createCards(data.Data); // Passes the "Data" array from the JSON response to the createCards() function
+    } catch (error) {
+        console.error("error", error);
+    }
+}
+
+fetchData();
 
 // Creates card element for each article passed as an argument
 function createCard(article) {
@@ -13,6 +24,11 @@ function createCard(article) {
     const title = document.createElement("h2");
     title.appendChild(document.createTextNode(article.title));
     card.appendChild(title);
+
+    const image = document.createElement("img");
+    image.className = "article-image";
+    image.src = article.imageurl;
+    card.appendChild(image);
 
     // Creates a p element for the article body/description, adds article body text node, and appends it to card element
     const description = document.createElement("p");
@@ -27,13 +43,21 @@ function createCard(article) {
 
     function toggleText() {
         if (readMore.textContent === "Show more") {
-            description.innerText += article.body;
+            // If the "Show more" link is clicked, show the full article body text
+            description.innerText = article.body;
             readMore.textContent = "Show less";
         } else {
-            description.innerText = article.body;
+            // If the "Show less" link is clicked, hide the full article body text by removing the extra text added previously
+            description.innerText = article.body.slice(0, 200) + "...";
             readMore.textContent = "Show more";
         }
     }
+
+    // Set the initial text content for the description element to the first 200 characters of the article body
+    description.innerText = article.body.slice(0, 200) + "...";
+
+    // Add an event listener to the "Show more" link button to call the toggleText() function when clicked
+    readMore.addEventListener("click", toggleText);
 
     // Remove previous event listener before adding a new one
     readMore.removeEventListener("click", toggleText);
@@ -43,10 +67,9 @@ function createCard(article) {
     return card;
 }
 
-
-
 // Defines a function called "createCards" which takes in an argument of "news"
 function createCards(news) {
+    const container = document.getElementById("cards-container");
 
     // Creates a new empty document fragment and assigns to constant variable "fragment"
     const fragment = document.createDocumentFragment();
@@ -64,20 +87,3 @@ function createCards(news) {
     // Appends the entire fragment (now containing all cards created) to the container element on the HTML page 
     container.appendChild(fragment);
 }
-
-
-// Uses the fetch() method to make a request to the API specified in "endpointUrl" and returns a promise object 
-fetch(endpointUrl)
-    // Once the promise object has resolved (i.e. HTTP response is received), calls a function that parses the response body as JSON data and returns it
-    .then(function (response) {
-        return response.json();
-    })
-    // Once the JSON data has been retrieved, calls a function that extracts the actual news articles from the returned JSON data using "data.Data". It then passes this news data to createCards() function to create individual cards for each article.
-    .then(function (data) {
-        const news = data.Data;
-        createCards(news);
-    })
-    // If any errors occur within the promise object during fetch(), catch() will be executed with the error object passed to it as a parameter. The error can be logged to console using console.error()
-    .catch(function (error) {
-        console.error(error);
-    });
