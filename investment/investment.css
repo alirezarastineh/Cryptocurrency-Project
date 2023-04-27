@@ -24,3 +24,10 @@ th {
   background-color: #ff0000e8;
   font-weight: bold;
 }
+
+label,
+input[type=checkbox] {
+  font-size: 1.196rem;
+  text-align: center;
+  cursor: pointer;
+}

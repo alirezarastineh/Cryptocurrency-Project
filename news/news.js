@@ -6,10 +6,9 @@ async function fetchData() {
     const data = await response.json();
     createCards(data.Data);
   } catch (error) {
-    console.error(error);
+    console.error("error", error);
   }
 }
-fetchData();
 
 function createCard(article) {
   const card = document.createElement("div");
@@ -48,6 +47,7 @@ function createCard(article) {
 
 function createCards(news) {
   const container = document.querySelector("#cards-container");
+
   const fragment = document.createDocumentFragment();
 
   news.forEach((article) => {
@@ -56,3 +56,5 @@ function createCards(news) {
 
   container.appendChild(fragment);
 }
+
+fetchData();
