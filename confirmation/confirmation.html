@@ -1,22 +1,122 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Investor Card — Cryptocurrency Club</title>
+    <link rel="stylesheet" href="../styles/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="nav-container">
+        <a href="../index.html" class="brand-logo">⚡ CryptoClub</a>
+        <div class="nav-actions">
+          <button class="icon-btn theme-toggle-btn">☀️</button>
+        </div>
+      </div>
+    </header>
 
-<head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Confirmation Page</title>
-	<link rel="stylesheet" href="../styles/styles.css">
-	<link rel="stylesheet" href="confirmation.css">
+    <main style="max-width: 580px; text-align: center">
+      <div
+        class="crypto-card"
+        style="
+          border: 2px solid var(--accent-cyan);
+          position: relative;
+          overflow: hidden;
+          margin-top: 2rem;
+        "
+      >
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1rem;
+            margin-bottom: 1.5rem;
+          "
+        >
+          <span
+            style="
+              font-weight: 700;
+              color: var(--accent-cyan);
+              font-size: 1.1rem;
+            "
+            >⚡ OFFICIAL INVESTOR PASS</span
+          >
+          <span
+            id="badge-date"
+            style="font-size: 0.85rem; color: var(--text-muted)"
+            >Registered Today</span
+          >
+        </div>
 
-<body>
-	<h1>Thank you for your submission!</h1>
-	<p>We have received your information and will process it shortly.</p>
-	<div id="confirmation"></div>
-	<button onclick="window.history.back()">Go Back To Registration Page</button>
-	<a href="../index.html" target="_self">
-		<button onclick="">Go Back To Homepage</button></a>
-	<script src="confirmation.js"></script>
-</body>
+        <div
+          style="
+            text-align: left;
+            display: grid;
+            gap: 1rem;
+            margin-bottom: 2rem;
+          "
+        >
+          <div>
+            <div style="font-size: 0.8rem; color: var(--text-muted)">
+              MEMBER NAME
+            </div>
+            <div id="badge-name" style="font-size: 1.25rem; font-weight: 700">
+              Alex Mercer
+            </div>
+          </div>
+          <div>
+            <div style="font-size: 0.8rem; color: var(--text-muted)">EMAIL</div>
+            <div
+              id="badge-email"
+              style="font-size: 1rem; color: var(--text-secondary)"
+            >
+              alex@domain.com
+            </div>
+          </div>
+          <div style="display: flex; gap: 2rem; flex-wrap: wrap">
+            <div>
+              <div style="font-size: 0.8rem; color: var(--text-muted)">
+                RISK RATING
+              </div>
+              <div id="badge-risk" class="positive" style="font-weight: 700">
+                Balanced Growth
+              </div>
+            </div>
+            <div>
+              <div style="font-size: 0.8rem; color: var(--text-muted)">
+                MEMBERSHIP TIER
+              </div>
+              <div
+                id="badge-tier"
+                style="font-weight: 700; color: var(--accent-cyan)"
+              >
+                Pro Trader
+              </div>
+            </div>
+          </div>
+        </div>
 
+        <div
+          style="
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+          "
+        >
+          <button onclick="window.print()" class="icon-btn">
+            🖨️ Print Investor Pass
+          </button>
+          <a href="../coins/coins.html" class="btn-primary"
+            >Go to Market Terminal →</a
+          >
+        </div>
+      </div>
+    </main>
+
+    <script type="module" src="confirmation.js"></script>
+  </body>
 </html>

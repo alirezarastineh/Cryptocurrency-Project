@@ -1,92 +1,95 @@
-const apiTable = document.getElementById("api-table");
+import { formatCurrency } from "../scripts/formatters.js";
+import { ThemeService } from "../scripts/themeService.js";
+import { CryptoAPI } from "../scripts/api.js";
+import { TickerComponent } from "../scripts/components/Ticker.js";
 
-function investTable(apiTable, checkboxes) {
-  const selectedSymbols = getSelectedSymbols(checkboxes);
-  const apiUrl =
-    "https://min-api.cryptocompare.com/data/pricemultifull?fsyms=" +
-    selectedSymbols.join(",") +
-    "&tsyms=USDT,BTC";
+document.addEventListener("DOMContentLoaded", async () => {
+  ThemeService.init();
+  document
+    .querySelectorAll(".theme-toggle-btn")
+    .forEach((b) => b.addEventListener("click", () => ThemeService.toggle()));
 
-  return fetch(apiUrl)
-    .then((response) => {
-      return response.json();
-    })
-    .then((data) => {
-      updateTable(data, selectedSymbols, apiTable);
-    })
-    .catch((error) => {
-      console.error("error", error);
-    });
-}
+  const coins = await CryptoAPI.getTopCoins();
+  const tickerMount = document.querySelector("#ticker-mount");
+  if (tickerMount) TickerComponent.render(tickerMount, coins);
 
-function addCheckboxListeners(apiTable) {
-  const checkboxes = Array.from(
-    document.querySelectorAll('input[name="filter"]')
-  );
+  const amountSlider = document.querySelector("#dca-amount");
+  const yearsSlider = document.querySelector("#dca-years");
+  const rateSlider = document.querySelector("#dca-rate");
 
-  checkboxes.forEach((checkbox) => {
-    checkbox.addEventListener("change", () => {
-      investTable(apiTable, checkboxes);
-    });
-  });
-}
+  function calculateAndDraw() {
+    const monthly = Number(amountSlider.value);
+    const years = Number(yearsSlider.value);
+    const annualRate = Number(rateSlider.value) / 100;
 
-function getSelectedSymbols(checkboxes) {
-  return checkboxes
-    .filter((checkbox) => checkbox.checked)
-    .map((checkbox) => checkbox.value.toUpperCase());
-}
-
-function createTableRow(symbol, priceUSDT, priceBTC, change24Hour) {
-  const row = document.createElement("tr");
-
-  const symbolCell = document.createElement("td");
-  symbolCell.textContent = symbol;
-  row.appendChild(symbolCell);
-
-  const priceUSDTCell = document.createElement("td");
-  priceUSDTCell.textContent = priceUSDT;
-  row.appendChild(priceUSDTCell);
-
-  const priceBTCCell = document.createElement("td");
-  priceBTCCell.textContent = priceBTC;
-  row.appendChild(priceBTCCell);
-
-  const changeCell = document.createElement("td");
-  const changeText = `${change24Hour}`;
-  changeCell.textContent = changeText;
-
-  if (change24Hour > 0) {
-    changeCell.classList.add("positive");
-  } else {
-    changeCell.classList.add("negative");
-  }
-
-  row.appendChild(changeCell);
-
-  return row;
-}
-
-function updateTable(data, selectedSymbols, apiTable) {
-  const tbody = apiTable.querySelector("tbody");
-  tbody.innerHTML = "";
-
-  for (let i = 0; i < selectedSymbols.length; i++) {
-    const symbol = selectedSymbols[i];
-    const USDT = data.DISPLAY[symbol].USDT;
-    const BTC = data.DISPLAY[symbol].BTC;
-    const row2 = createTableRow(
-      symbol,
-      USDT.PRICE,
-      BTC.PRICE,
-      USDT.CHANGE24HOUR
+    document.querySelector("#dca-amount-val").textContent = formatCurrency(
+      monthly,
+      0,
     );
-    tbody.appendChild(row2);
-  }
-}
+    document.querySelector("#dca-years-val").textContent =
+      `${years} Year${years > 1 ? "s" : ""}`;
+    document.querySelector("#dca-rate-val").textContent =
+      `${(annualRate * 100).toFixed(0)}%`;
 
-addCheckboxListeners(apiTable);
-investTable(
-  apiTable,
-  Array.from(document.querySelectorAll('input[name="filter"]'))
-);
+    const months = years * 12;
+    const monthlyRate = annualRate / 12;
+    let futureValue = 0;
+    const dataPoints = [];
+
+    for (let m = 1; m <= months; m++) {
+      futureValue = (futureValue + monthly) * (1 + monthlyRate);
+      dataPoints.push(futureValue);
+    }
+
+    const principal = monthly * months;
+    document.querySelector("#dca-total-principal").textContent = formatCurrency(
+      principal,
+      0,
+    );
+    document.querySelector("#dca-total-value").textContent = formatCurrency(
+      futureValue,
+      0,
+    );
+
+    drawDCAChart(dataPoints, principal);
+  }
+
+  [amountSlider, yearsSlider, rateSlider].forEach((el) =>
+    el?.addEventListener("input", calculateAndDraw),
+  );
+  calculateAndDraw();
+});
+
+function drawDCAChart(dataPoints, principal) {
+  const canvas = document.querySelector("#dca-chart");
+  if (!canvas) return;
+  const ctx = canvas.getContext("2d");
+  const w = canvas.width;
+  const h = canvas.height;
+  ctx.clearRect(0, 0, w, h);
+
+  const maxVal = Math.max(...dataPoints, principal * 1.1);
+
+  // Draw Area Curve
+  ctx.beginPath();
+  dataPoints.forEach((val, idx) => {
+    const x = (idx / (dataPoints.length - 1)) * (w - 20) + 10;
+    const y = h - (val / maxVal) * (h - 30) - 15;
+    if (idx === 0) ctx.moveTo(x, y);
+    else ctx.lineTo(x, y);
+  });
+
+  ctx.strokeStyle = "#00d2ff";
+  ctx.lineWidth = 3;
+  ctx.stroke();
+
+  // Gradient fill
+  ctx.lineTo(w - 10, h - 10);
+  ctx.lineTo(10, h - 10);
+  ctx.closePath();
+  const grad = ctx.createLinearGradient(0, 0, 0, h);
+  grad.addColorStop(0, "rgba(0, 210, 255, 0.35)");
+  grad.addColorStop(1, "rgba(0, 210, 255, 0.0)");
+  ctx.fillStyle = grad;
+  ctx.fill();
+}

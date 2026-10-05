@@ -1,38 +1,32 @@
-const params = new URLSearchParams(window.location.search);
-const [name, email, phone, date, time, partySize, preference, invest, income] = [
-    'name', 'email', 'phone', 'date', 'time', 'party-size', 'preference', 'type', 'type2'
-].map(param => params.get(param));
-const totalPoints = +invest + +income;
+import { ThemeService } from "../scripts/themeService.js";
 
-const createElem = (text) => Object.assign(document.createElement('p'), { textContent: text });
+document.addEventListener("DOMContentLoaded", () => {
+  ThemeService.init();
+  document
+    .querySelectorAll(".theme-toggle-btn")
+    .forEach((b) => b.addEventListener("click", () => ThemeService.toggle()));
 
-const nameElem = createElem(`Name: ${name}`);
-const emailElem = createElem(`Email: ${email}`);
-const phoneElem = createElem(`Phone: ${phone}`);
-const dateElem = createElem(`Date: ${date}`);
-const timeElem = createElem(`Time: ${time}`);
-const partySizeElem = createElem(`Party Size: ${partySize}`);
-const preferenceElem = createElem(`Preference: ${preference}`);
+  // Read from LocalStorage or URL params
+  const params = new URLSearchParams(window.location.search);
+  const localProfile = JSON.parse(
+    localStorage.getItem("crypto_investor_profile") || "{}",
+  );
 
-function myPreference() {
-    document.getElementById('trader').checked = true;
-    document.getElementById('holder').checked = true;
-}
+  const name = params.get("name") || localProfile.name || "Alex Mercer";
+  const email = params.get("email") || localProfile.email || "alex@domain.com";
+  const risk = localProfile.riskProfile || "Balanced Growth";
+  const tier = localProfile.tier || "Pro Trader";
+  const date = localProfile.date || new Date().toLocaleDateString();
 
-const investElem = createElem(`Invest: ${invest}`);
-const incomeElem = createElem(`Income: ${income}`);
-const totalPointsElem = createElem(`Total Points: ${totalPoints}`);
+  const nameEl = document.querySelector("#badge-name");
+  const emailEl = document.querySelector("#badge-email");
+  const riskEl = document.querySelector("#badge-risk");
+  const tierEl = document.querySelector("#badge-tier");
+  const dateEl = document.querySelector("#badge-date");
 
-const confirmationElem = document.querySelector('#confirmation');
-confirmationElem.append(...[
-    nameElem,
-    emailElem,
-    phoneElem,
-    dateElem,
-    timeElem,
-    partySizeElem,
-    preferenceElem,
-    investElem,
-    incomeElem,
-    totalPointsElem,
-]);
+  if (nameEl) nameEl.textContent = name;
+  if (emailEl) emailEl.textContent = email;
+  if (riskEl) riskEl.textContent = risk;
+  if (tierEl) tierEl.textContent = tier;
+  if (dateEl) dateEl.textContent = date;
+});

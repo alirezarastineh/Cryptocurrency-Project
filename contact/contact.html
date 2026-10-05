@@ -1,81 +1,145 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact & Support — Cryptocurrency Club</title>
+    <link rel="stylesheet" href="../styles/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="nav-container">
+        <a href="../index.html" class="brand-logo">⚡ CryptoClub</a>
+        <nav>
+          <ul class="nav-links">
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../coins/coins.html">Markets</a></li>
+            <li><a href="../investment/investment.html">Investment</a></li>
+            <li><a href="../news/news.html">News</a></li>
+            <li><a href="../membership/membership.html">VIP Membership</a></li>
+            <li><a href="contact.html" class="active">Contact</a></li>
+          </ul>
+        </nav>
+        <div class="nav-actions">
+          <button class="icon-btn theme-toggle-btn">☀️</button>
+        </div>
+      </div>
+    </header>
 
-<head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Contact Page</title>
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300&display=swap" rel="stylesheet">
-	<link rel="stylesheet"
-		href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
-	<link rel="stylesheet" href="../styles/styles.css">
-	<link rel="stylesheet" href="contact.css">
-</head>
+    <main
+      style="
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 2rem;
+      "
+    >
+      <!-- Contact Form -->
+      <div class="crypto-card">
+        <h2>Get in Touch</h2>
+        <p style="color: var(--text-secondary); margin-bottom: 1.5rem">
+          Have questions about VIP mentorship or analytics tools? Send us a
+          message.
+        </p>
+        <form id="contact-form">
+          <div style="margin-bottom: 1rem">
+            <label
+              for="contact-name"
+              style="display: block; margin-bottom: 0.4rem"
+              >Name</label
+            >
+            <input
+              type="text"
+              id="contact-name"
+              name="name"
+              required
+              placeholder="Your name"
+              style="width: 100%"
+            />
+          </div>
+          <div style="margin-bottom: 1rem">
+            <label
+              for="contact-email"
+              style="display: block; margin-bottom: 0.4rem"
+              >Email</label
+            >
+            <input
+              type="email"
+              id="contact-email"
+              name="email"
+              required
+              placeholder="you@domain.com"
+              style="width: 100%"
+            />
+          </div>
+          <div style="margin-bottom: 1.5rem">
+            <label
+              for="contact-message"
+              style="display: block; margin-bottom: 0.4rem"
+              >Message</label
+            >
+            <textarea
+              id="contact-message"
+              name="message"
+              rows="4"
+              required
+              placeholder="How can we help you?"
+              style="width: 100%"
+            ></textarea>
+          </div>
+          <button type="submit" class="btn-primary" style="width: 100%">
+            Send Message
+          </button>
+        </form>
+      </div>
 
-<body>
-	<nav>
-		<ul class="border">
-			<li><a href="../index.html"><span class="material-symbols-outlined">home</span></a>
-                <div class="hovertext">Home</div>
-            </li>
-            <li><a href="../membership/membership.html"><span class="material-symbols-outlined">payments</span></a>
-                <div class="hovertext">Membership</div>
-            </li>
-            <li><a href="../registration/registration.html"><span
-                        class="material-symbols-outlined">how_to_reg</span></a>
-                <div class="hovertext">Registration</div>
-            </li>
-            <li class="news">
-                <a href="../news/news.html" id="news"><span class="material-symbols-outlined">
-                        breaking_news_alt_1
-                    </span></a>
-                <div class="hovertext">News</div>
-            </li>
-            <li class="investment">
-                <a href="../investment/investment.html" id="investment"><span class="material-symbols-outlined">
-                        psychology_alt
-                    </span></a>
-                <div class="hovertext">Investment</div>
-            </li>
-            <li class="coins">
-                <a href="../coins/coins.html" id="coin"><span
-                        class="material-symbols-outlined">monetization_on</span></a>
-                <div class="hovertext">Coins</div>
-                <div class="coin-content">
-                    <a href="https://www.tradingview.com/chart/hVd0XUIW/?symbol=BINANCE%3ABTCUSDTPERP"
-                        target="_blank">Bitcoin</a>
-                    <a href="https://www.tradingview.com/chart/hVd0XUIW/?symbol=BINANCE%3AETHUSDTPERP"
-                        target="_blank">Ethereum</a>
-                    <a href="https://www.tradingview.com/chart/hVd0XUIW/?symbol=BINANCE%3ALTCUSDTPERP"
-                        target="_blank">Litecoin</a>
-                    <a href="https://www.tradingview.com/chart/hVd0XUIW/?symbol=BINANCE%3AXRPUSDTPERP"
-                        target="_blank">Ripple</a>
-                </div>
-            </li>
-			<li class="contact"><a href="contact.html" class="active"><span
-						class="material-symbols-outlined">contact_support</span></a>
-				<div class="hovertext">Contact</div>
-			</li>
-		</ul>
-	</nav>
-	<title>Contact Us</title>
-	<h1>Contact Us</h1>
-	<address>
-		<pre> <strong>Address:</strong>
-			Erich-Weinert-Straße 145<br>
-			10409 Berlin<br>
-			Germany<br></pre>
-	</address>
-	<h2>Email</h2>
-	<p>To contact us, please send an email to <a href="mailto:info@example.com">info@example.com</a>.</p>
-	<iframe
-		src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d77671.34158901051!2d13.455911200000013!3d52.5292831!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47a84f446e0c53a1%3A0x27eac7eee50f967e!2sCode%20Academy%20Berlin!5e0!3m2!1sen!2sde!4v1678963195807!5m2!1sen!2sde"
-		width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-		referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <!-- Office & FAQs -->
+      <div>
+        <div class="crypto-card" style="margin-bottom: 1.5rem">
+          <h3>📍 Berlin Innovation Office</h3>
+          <p style="color: var(--text-secondary); margin-top: 0.5rem">
+            Erich-Weinert-Straße 145<br />
+            10409 Berlin, Germany<br />
+            <strong style="color: var(--text-primary)">Email:</strong>
+            support@cryptocurrencyclub.io
+          </p>
+        </div>
 
-</body>
+        <div class="crypto-card">
+          <h3>Frequently Asked Questions</h3>
+          <details style="margin-top: 0.75rem; cursor: pointer">
+            <summary style="font-weight: 600; color: var(--accent-cyan)">
+              How often are coin prices updated?
+            </summary>
+            <p
+              style="
+                color: var(--text-secondary);
+                margin-top: 0.5rem;
+                font-size: 0.9rem;
+              "
+            >
+              Market terminal prices and sparklines poll from CryptoCompare APIs
+              with automatic local caching.
+            </p>
+          </details>
+          <details style="margin-top: 0.75rem; cursor: pointer">
+            <summary style="font-weight: 600; color: var(--accent-cyan)">
+              Is my portfolio data private?
+            </summary>
+            <p
+              style="
+                color: var(--text-secondary);
+                margin-top: 0.5rem;
+                font-size: 0.9rem;
+              "
+            >
+              Yes, 100% of your holdings and watchlist are stored client-side in
+              your browser's LocalStorage.
+            </p>
+          </details>
+        </div>
+      </div>
+    </main>
 
+    <script type="module" src="contact.js"></script>
+  </body>
 </html>

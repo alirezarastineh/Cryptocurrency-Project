@@ -1,0 +1,631 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cryptocurrency Club - In-Browser Test Suite Runner</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
+    <link rel="stylesheet" href="../shared/css/tokens.css" />
+    <style>
+      :root {
+        --bg-base: #0a0e17;
+        --bg-card: #131d31;
+        --bg-card-hover: #1a2742;
+        --border-color: rgba(255, 255, 255, 0.08);
+        --accent-glow: rgba(99, 102, 241, 0.25);
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: var(--font-sans, "Inter", sans-serif);
+        background-color: var(--bg-base);
+        color: #f8fafc;
+        min-height: 100vh;
+        padding: 2rem 1.5rem;
+        line-height: 1.5;
+      }
+
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+
+      .runner-container {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      /* Header */
+      .runner-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 2rem;
+        padding-bottom: 1.5rem;
+        border-bottom: 1px solid var(--border-color);
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      .brand-title-area {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .brand-logo-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+        background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #ffffff;
+        box-shadow: 0 4px 16px var(--accent-glow);
+      }
+
+      .runner-heading {
+        font-size: 1.5rem;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+      }
+
+      .runner-subheading {
+        font-size: 0.8125rem;
+        color: #cbd5e1;
+      }
+
+      /* Metrics Grid */
+      .metrics-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin-bottom: 2rem;
+      }
+
+      .metric-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 1.25rem 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      }
+
+      .metric-label {
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: #cbd5e1;
+      }
+
+      .metric-value {
+        font-family: var(--font-mono, monospace);
+        font-size: 1.875rem;
+        font-weight: 700;
+        color: #f8fafc;
+      }
+
+      .metric-value.passed {
+        color: #10b981;
+      }
+      .metric-value.skipped {
+        color: #f59e0b;
+      }
+      .metric-value.failed {
+        color: #ef4444;
+      }
+
+      /* Controls Bar */
+      .controls-bar {
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 1rem 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .btn-primary {
+        background: #4f46e5;
+        color: #ffffff;
+        border: none;
+        border-radius: 8px;
+        padding: 0.625rem 1.25rem;
+        font-family: inherit;
+        font-weight: 600;
+        font-size: 0.875rem;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition:
+          background 0.2s ease,
+          transform 0.1s ease;
+      }
+
+      .btn-primary:hover {
+        background: #4338ca;
+      }
+
+      .btn-primary:active {
+        transform: scale(0.98);
+      }
+
+      .filters-group {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+      }
+
+      .filter-btn {
+        background: #1e293b;
+        border: 1px solid var(--border-color);
+        color: #f8fafc;
+        border-radius: 6px;
+        padding: 0.375rem 0.75rem;
+        font-size: 0.75rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .filter-btn:hover {
+        background: #334155;
+        color: #ffffff;
+      }
+
+      .filter-btn.active {
+        background: #4f46e5;
+        border-color: #4f46e5;
+        color: #ffffff;
+      }
+
+      .search-box {
+        background: #0f172a;
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        padding: 0.375rem 0.75rem;
+        color: #f8fafc;
+        font-family: inherit;
+        font-size: 0.8125rem;
+        outline: none;
+        min-width: 200px;
+      }
+
+      .search-box:focus {
+        border-color: #4f46e5;
+      }
+
+      /* Progress bar */
+      .progress-track {
+        width: 100%;
+        height: 6px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 999px;
+        overflow: hidden;
+        margin-bottom: 2rem;
+      }
+
+      .progress-fill {
+        height: 100%;
+        width: 0%;
+        background: linear-gradient(90deg, #6366f1, #10b981);
+        transition: width 0.3s ease;
+      }
+
+      /* Suite list */
+      .suites-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .suite-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        overflow: hidden;
+      }
+
+      .suite-header {
+        padding: 1rem 1.25rem;
+        background: rgba(255, 255, 255, 0.02);
+        border-bottom: 1px solid var(--border-color);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        cursor: pointer;
+        user-select: none;
+      }
+
+      .suite-header:hover {
+        background: rgba(255, 255, 255, 0.04);
+      }
+
+      .suite-title {
+        font-size: 0.9375rem;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .tier-pill {
+        font-size: 0.6875rem;
+        padding: 2px 6px;
+        border-radius: 4px;
+        background: #312e81;
+        color: #c7d2fe;
+        font-weight: 600;
+        text-transform: uppercase;
+      }
+
+      .suite-counts {
+        display: flex;
+        gap: 0.75rem;
+        font-size: 0.75rem;
+        font-family: var(--font-mono, monospace);
+      }
+
+      .count-tag {
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-weight: 600;
+      }
+      .count-tag.pass {
+        background: #064e3b;
+        color: #a7f3d0;
+      }
+      .count-tag.skip {
+        background: #78350f;
+        color: #fde68a;
+      }
+      .count-tag.fail {
+        background: #7f1d1d;
+        color: #fecaca;
+      }
+
+      /* Test item */
+      .test-rows {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .test-row {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        padding: 0.75rem 1.25rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+        font-size: 0.8125rem;
+        gap: 1rem;
+      }
+
+      .test-row:last-child {
+        border-bottom: none;
+      }
+
+      .test-name-area {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.625rem;
+        flex-grow: 1;
+      }
+
+      .status-icon {
+        font-size: 16px;
+        margin-top: 2px;
+        flex-shrink: 0;
+      }
+
+      .status-icon.passed {
+        color: #34d399;
+      }
+      .status-icon.skipped {
+        color: #fbbf24;
+      }
+      .status-icon.failed {
+        color: #f87171;
+      }
+
+      .test-meta {
+        font-family: var(--font-mono, monospace);
+        font-size: 0.75rem;
+        color: #cbd5e1;
+        flex-shrink: 0;
+      }
+
+      .test-skip-note {
+        font-size: 0.75rem;
+        color: #fbbf24;
+        margin-top: 0.25rem;
+      }
+
+      .test-error-box {
+        margin-top: 0.5rem;
+        padding: 0.625rem;
+        background: #450a0a;
+        border: 1px solid #7f1d1d;
+        border-radius: 6px;
+        color: #fecaca;
+        font-family: var(--font-mono, monospace);
+        font-size: 0.75rem;
+        white-space: pre-wrap;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="runner-container">
+      <header class="runner-header">
+        <div class="brand-title-area">
+          <div class="brand-logo-icon">
+            <span class="material-symbols-outlined">analytics</span>
+          </div>
+          <div>
+            <h1 class="runner-heading">
+              Cryptocurrency Club - In-Browser Test Suite
+            </h1>
+            <p class="runner-subheading">
+              Opaque-Box 4-Tier Test Runner & Progressive Verification Engine
+            </p>
+          </div>
+        </div>
+        <button class="btn-primary" id="btn-run-all">
+          <span class="material-symbols-outlined" style="font-size: 18px"
+            >play_arrow</span
+          >
+          <span>Run All Tests</span>
+        </button>
+      </header>
+
+      <!-- Metrics Cards -->
+      <section class="metrics-grid">
+        <div class="metric-card">
+          <span class="metric-label">Total Tests</span>
+          <span class="metric-value" id="val-total">0</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-label">Passed</span>
+          <span class="metric-value passed" id="val-passed">0</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-label">Skipped (Guarded)</span>
+          <span class="metric-value skipped" id="val-skipped">0</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-label">Failed</span>
+          <span class="metric-value failed" id="val-failed">0</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-label">Duration</span>
+          <span class="metric-value" id="val-time">0.00s</span>
+        </div>
+      </section>
+
+      <!-- Controls Bar -->
+      <div class="controls-bar">
+        <div class="filters-group">
+          <button class="filter-btn active" data-tier="all">All Tiers</button>
+          <button class="filter-btn" data-tier="1">Tier 1: Features</button>
+          <button class="filter-btn" data-tier="2">Tier 2: Boundaries</button>
+          <button class="filter-btn" data-tier="3">Tier 3: Interactions</button>
+          <button class="filter-btn" data-tier="4">Tier 4: Scenarios</button>
+          <button class="filter-btn" data-status="failed">Failed Only</button>
+        </div>
+        <label for="search-filter" class="sr-only">Filter tests by name</label>
+        <input
+          type="text"
+          class="search-box"
+          id="search-filter"
+          placeholder="Filter tests by name..."
+          aria-label="Filter tests by name"
+        />
+      </div>
+
+      <!-- Progress Bar -->
+      <div class="progress-track">
+        <div class="progress-fill" id="progress-bar"></div>
+      </div>
+
+      <!-- Suites Container -->
+      <main class="suites-list" id="suites-container">
+        <div style="text-align: center; padding: 3rem; color: #64748b">
+          Click <strong>Run All Tests</strong> to execute the full 4-tier suite.
+        </div>
+      </main>
+    </div>
+
+    <script type="module">
+      import { registry } from "./test-harness.js";
+      import "./tier1_features.test.js";
+      import "./tier2_boundaries.test.js";
+      import "./tier3_interactions.test.js";
+      import "./tier4_scenarios.test.js";
+
+      let activeTier = "all";
+      let failedOnly = false;
+      let searchQuery = "";
+      let lastResults = null;
+
+      const btnRunAll = document.getElementById("btn-run-all");
+      const suitesContainer = document.getElementById("suites-container");
+      const progressBar = document.getElementById("progress-bar");
+      const searchFilter = document.getElementById("search-filter");
+      const filterButtons = document.querySelectorAll(".filter-btn");
+
+      async function executeTests() {
+        btnRunAll.disabled = true;
+        btnRunAll.innerHTML =
+          '<span class="material-symbols-outlined" style="font-size: 18px;">hourglass_top</span><span>Running...</span>';
+        progressBar.style.width = "15%";
+
+        const startTime = performance.now();
+        const results = await registry.run();
+        const duration = ((performance.now() - startTime) / 1000).toFixed(2);
+
+        lastResults = results;
+        progressBar.style.width = "100%";
+
+        // Update Metric Values
+        document.getElementById("val-total").textContent = results.total;
+        document.getElementById("val-passed").textContent = results.passed;
+        document.getElementById("val-skipped").textContent = results.skipped;
+        document.getElementById("val-failed").textContent = results.failed;
+        document.getElementById("val-time").textContent = `${duration}s`;
+
+        renderSuites(results);
+
+        btnRunAll.disabled = false;
+        btnRunAll.innerHTML =
+          '<span class="material-symbols-outlined" style="font-size: 18px;">refresh</span><span>Re-run Tests</span>';
+      }
+
+      function renderSuites(results) {
+        if (!results || !results.suites) return;
+
+        const filteredSuites = results.suites.filter((suite) => {
+          if (
+            activeTier !== "all" &&
+            suite.tier !== Number.parseInt(activeTier, 10)
+          ) {
+            return false;
+          }
+          if (failedOnly && suite.failed === 0) {
+            return false;
+          }
+          return true;
+        });
+
+        if (filteredSuites.length === 0) {
+          suitesContainer.innerHTML =
+            '<div style="text-align: center; padding: 2rem; color: #64748b;">No matching suites found.</div>';
+          return;
+        }
+
+        suitesContainer.innerHTML = filteredSuites
+          .map((suite, sIdx) => {
+            const testsHtml = suite.tests
+              .filter((t) => {
+                if (failedOnly && t.status !== "failed") return false;
+                if (
+                  searchQuery &&
+                  !t.name.toLowerCase().includes(searchQuery.toLowerCase())
+                )
+                  return false;
+                return true;
+              })
+              .map((t) => {
+                let icon = "check_circle";
+                if (t.status === "skipped") icon = "radio_button_unchecked";
+                if (t.status === "failed") icon = "cancel";
+
+                const skipHtml = t.skipReason
+                  ? `<div class="test-skip-note">Guarded: ${t.skipReason}</div>`
+                  : "";
+                const errorHtml = t.error
+                  ? `<div class="test-error-box">${t.error.message}\n${t.error.stack || ""}</div>`
+                  : "";
+
+                return `
+              <div class="test-row">
+                <div class="test-name-area">
+                  <span class="material-symbols-outlined status-icon ${t.status}">${icon}</span>
+                  <div>
+                    <div>${t.name}</div>
+                    ${skipHtml}
+                    ${errorHtml}
+                  </div>
+                </div>
+                <div class="test-meta">${t.durationMs}ms</div>
+              </div>
+            `;
+              })
+              .join("");
+
+            if (!testsHtml) return "";
+
+            return `
+          <div class="suite-card">
+            <div class="suite-header">
+              <div class="suite-title">
+                <span class="tier-pill">Tier ${suite.tier}</span>
+                <span>${suite.name}</span>
+              </div>
+              <div class="suite-counts">
+                <span class="count-tag pass">${suite.passed} passed</span>
+                <span class="count-tag skip">${suite.skipped} skipped</span>
+                ${suite.failed > 0 ? `<span class="count-tag fail">${suite.failed} failed</span>` : ""}
+              </div>
+            </div>
+            <div class="test-rows">
+              ${testsHtml}
+            </div>
+          </div>
+        `;
+          })
+          .join("");
+      }
+
+      // Attach event listeners
+      btnRunAll.addEventListener("click", executeTests);
+
+      searchFilter.addEventListener("input", (e) => {
+        searchQuery = e.target.value;
+        if (lastResults) renderSuites(lastResults);
+      });
+
+      filterButtons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          filterButtons.forEach((b) => b.classList.remove("active"));
+          btn.classList.add("active");
+
+          if (btn.dataset.status === "failed") {
+            failedOnly = true;
+            activeTier = "all";
+          } else {
+            failedOnly = false;
+            activeTier = btn.dataset.tier || "all";
+          }
+
+          if (lastResults) renderSuites(lastResults);
+        });
+      });
+
+      // Auto run on page load
+      window.addEventListener("DOMContentLoaded", () => {
+        executeTests();
+      });
+    </script>
+  </body>
+</html>

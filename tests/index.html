@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cryptocurrency Club — Test Suite</title>
+    <link rel="stylesheet" href="../styles/styles.css" />
+    <style>
+      .test-suite {
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-md);
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+      }
+      .test-result {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.5rem 0.75rem;
+        margin: 0.25rem 0;
+        border-radius: var(--radius-sm);
+        background: var(--bg-input);
+        font-size: 0.9rem;
+      }
+      .badge-pass {
+        color: var(--accent-green);
+        font-weight: 700;
+      }
+      .badge-fail {
+        color: var(--accent-red);
+        font-weight: 700;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="nav-container">
+        <a href="../index.html" class="brand-logo">⚡ CryptoClub Test Runner</a>
+        <a href="../index.html" class="icon-btn">← Back to App</a>
+      </div>
+    </header>
+
+    <main style="max-width: 900px">
+      <div
+        style="
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 2rem;
+        "
+      >
+        <h1>Automated Quality Assurance Suite</h1>
+        <button id="run-all-btn" class="btn-primary">▶ Run All Tests</button>
+      </div>
+
+      <div
+        id="summary-bar"
+        class="crypto-card"
+        style="margin-bottom: 1.5rem; display: flex; gap: 2rem"
+      >
+        <div><strong>Total Tests:</strong> <span id="total-count">0</span></div>
+        <div>
+          <strong>Passed:</strong>
+          <span id="pass-count" class="positive">0</span>
+        </div>
+        <div>
+          <strong>Failed:</strong>
+          <span id="fail-count" class="negative">0</span>
+        </div>
+      </div>
+
+      <div id="test-output"></div>
+    </main>
+
+    <script type="module">
+      import { TestSuite, expect } from "./test-runner.js";
+      import {
+        formatCurrency,
+        formatPercent,
+        formatNumber,
+        formatTimeAgo,
+      } from "../scripts/formatters.js";
+      import { StorageManager } from "../scripts/storage.js";
+      import { CryptoAPI } from "../scripts/api.js";
+      import { ThemeService } from "../scripts/themeService.js";
+
+      async function runTests() {
+        const output = document.querySelector("#test-output");
+        output.innerHTML = "";
+        let total = 0,
+          passed = 0,
+          failed = 0;
+
+        function renderSuite(suite, results) {
+          const div = document.createElement("div");
+          div.className = "test-suite";
+          div.innerHTML = `<h3>${suite.title} (${suite.passed}/${suite.tests.length} passed)</h3>`;
+
+          results.forEach((r) => {
+            const item = document.createElement("div");
+            item.className = "test-result";
+            item.innerHTML = `
+            <span>${r.desc}</span>
+            <span class="${r.pass ? "badge-pass" : "badge-fail"}">${r.pass ? "✓ PASS" : "✕ FAIL: " + r.error}</span>
+          `;
+            div.appendChild(item);
+          });
+          output.appendChild(div);
+        }
+
+        // SUITE 1: Formatters
+        const suite1 = new TestSuite("1. Data Formatters Suite");
+        suite1.it("formats standard currency correctly", () => {
+          expect(formatCurrency(68500.5)).toBe("$68,500.50");
+        });
+        suite1.it(
+          "formats fractional sub-dollar currencies with appropriate precision",
+          () => {
+            expect(formatCurrency(0.005234)).toBe("$0.0052");
+          },
+        );
+        suite1.it(
+          "formats positive and negative percentages with signs",
+          () => {
+            expect(formatPercent(5.2)).toBe("+5.20%");
+            expect(formatPercent(-3.14)).toBe("-3.14%");
+          },
+        );
+        suite1.it("formats large numbers with abbreviations (B, M, T)", () => {
+          expect(formatNumber(1350000000000)).toBe("$1.35T");
+          expect(formatNumber(88400000000)).toBe("$88.40B");
+        });
+        suite1.it("formats relative time ago", () => {
+          const oneHourAgo = Math.floor(Date.now() / 1000) - 3600;
+          expect(formatTimeAgo(oneHourAgo)).toBe("1h ago");
+        });
+        await suite1.run(renderSuite);
+
+        // SUITE 2: Storage Manager
+        const suite2 = new TestSuite("2. Client-Side Storage Manager Suite");
+        suite2.it("retrieves default watchlist if empty", () => {
+          const list = StorageManager.getWatchlist();
+          expect(list).toContain("BTC");
+        });
+        suite2.it("toggles coins in and out of watchlist", () => {
+          const updated = StorageManager.toggleWatchlist("TESTCOIN");
+          expect(updated).toContain("TESTCOIN");
+          const reverted = StorageManager.toggleWatchlist("TESTCOIN");
+          expect(reverted.includes("TESTCOIN")).toBe(false);
+        });
+        suite2.it("saves and retrieves portfolio holdings", () => {
+          const sample = [{ coin: "BTC", amount: 1.5, buyPrice: 60000 }];
+          StorageManager.savePortfolio(sample);
+          expect(StorageManager.getPortfolio()).toEqual(sample);
+        });
+        await suite2.run(renderSuite);
+
+        // SUITE 3: Crypto API & Fallbacks
+        const suite3 = new TestSuite("3. Resilient API Layer Suite");
+        suite3.it(
+          "returns valid crypto objects with price, sparkline, and market cap",
+          async () => {
+            const coins = await CryptoAPI.getTopCoins();
+            expect(coins.length).toBeGreaterThan(0);
+            expect(coins[0].symbol).toBeDefined();
+            expect(coins[0].current_price).toBeGreaterThan(0);
+            expect(coins[0].sparkline.length).toBeGreaterThan(0);
+          },
+        );
+        await suite3.run(renderSuite);
+
+        // SUITE 4: DCA Calculation Math
+        const suite4 = new TestSuite("4. Financial & DCA Math Suite");
+        suite4.it("calculates compound interest correctly over horizon", () => {
+          const monthly = 100;
+          const months = 12;
+          const annualRate = 0.12; // 12%
+          const monthlyRate = annualRate / 12; // 1%
+          let fv = 0;
+          for (let m = 1; m <= months; m++) {
+            fv = (fv + monthly) * (1 + monthlyRate);
+          }
+          // Total invested = 1200, compounded value should be approx 1280.93
+          expect(fv).toBeGreaterThan(1200);
+        });
+        await suite4.run(renderSuite);
+
+        // SUITE 5: Theme Engine
+        const suite5 = new TestSuite("5. Theme Engine Suite");
+        suite5.it("toggles theme between dark and light", () => {
+          ThemeService.apply("dark");
+          expect(document.documentElement.dataset.theme).toBe("dark");
+          const next = ThemeService.toggle();
+          expect(document.documentElement.dataset.theme).toBe(next);
+        });
+        await suite5.run(renderSuite);
+
+        const allSuites = [suite1, suite2, suite3, suite4, suite5];
+        total = allSuites.reduce((acc, s) => acc + s.tests.length, 0);
+        passed = allSuites.reduce((acc, s) => acc + s.passed, 0);
+        failed = allSuites.reduce((acc, s) => acc + s.failed, 0);
+
+        document.querySelector("#total-count").textContent = total;
+        document.querySelector("#pass-count").textContent = passed;
+        document.querySelector("#fail-count").textContent = failed;
+      }
+
+      document
+        .querySelector("#run-all-btn")
+        .addEventListener("click", runTests);
+      await runTests();
+    </script>
+  </body>
+</html>

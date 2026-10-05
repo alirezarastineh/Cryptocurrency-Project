@@ -1,33 +1,28 @@
-table {
-  border-collapse: collapse;
-  margin: auto;
-  font-size: 1.2rem;
+.stat-box {
+  flex: 1;
+  background: var(--bg-input);
+  padding: 1.25rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-color);
+}
+
+.stat-box .title {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.stat-box .val {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+#dca-chart {
   width: 100%;
-  border-radius: 50%;
-}
-
-th,
-td {
-  font-size: 1.3rem;
-  ;
-  padding: 10px;
-  border: 2px solid rgba(0, 0, 0, 0.705);
-  text-align: center;
-  background-color: #9488889d;
-  color: rgb(47, 0, 255);
-  font-weight: bold;
-}
-
-th {
-  font-size: 1.5rem;
-  color: white;
-  background-color: #ff0000e8;
-  font-weight: bold;
-}
-
-label,
-input[type=checkbox] {
-  font-size: 1.196rem;
-  text-align: center;
-  cursor: pointer;
+  height: 200px;
+  background: var(--bg-primary);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-color);
+  margin-top: 1rem;
 }

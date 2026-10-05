@@ -1,143 +1,167 @@
-const fetchCryptoPrices = () => {
-  return fetch(
-    "https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC,ETH,USDT,BNB,USDC,XRP,ADA,DOGE,MATIC,SOL,DOT,LTC,SHIB,TRX,AVAX,DAI,LINK,UNI,ATOM,LEO,OKB,ETC,XMR,TON,ICP,XLM,BCH,FIL,TUSD,APT,HBAR,NEAR,LDO,ARB,CRO,VET,APE,ALSO,GRT,QNT,FTM,EOS,MANA,THETA,AAVE,STX,EGLD,FLOW,XTZ,AXS,RPL,USDP,SAND,IMX,BIT,CHZ,CFX,NEO,KCS,OP,SNX,CRV,RNDR,KLAY,USDD,MKR,GMX,LUNC,BSV,MINA,BTT,INJ,FXS,CAKE,ZEC,HT,DASH,XEC,XDC,MIOTA,IOTA,IOTX,CSPR,GT,TWT,PAXG,RUNE,LRC,ZIL,FLR,WOO,AGIX,DYDX,GUSD,CVX,1INCH,ENJ,KAVA,OSMO,ROSE&tsyms=USDT"
-  )
-    .then((response) => response.json())
-    .then((data) => {
-      return Object.values(data.RAW).map((coin) => {
-        return {
-          name: coin.USDT.FROMSYMBOL,
-          image: `https://www.cryptocompare.com/${coin.USDT.IMAGEURL}`,
-          current_price: coin.USDT.PRICE,
-          price_change_percentage_24h: coin.USDT.CHANGEPCT24HOUR,
-          market_cap: coin.USDT.MKTCAP,
-          total_volume: coin.USDT.TOTALVOLUME24HTO,
-        };
-      });
-    })
-    .catch((error) => {
-      console.error("Error fetching crypto prices:", error);
-      return [];
+import { CryptoAPI } from "../scripts/api.js";
+import { StorageManager } from "../scripts/storage.js";
+import {
+  formatCurrency,
+  formatPercent,
+  formatNumber,
+} from "../scripts/formatters.js";
+import { ThemeService } from "../scripts/themeService.js";
+import { TickerComponent } from "../scripts/components/Ticker.js";
+
+let allCoins = [];
+let activeFilter = "all";
+let sortField = "market_cap";
+let sortAsc = false;
+
+document.addEventListener("DOMContentLoaded", async () => {
+  ThemeService.init();
+  document
+    .querySelectorAll(".theme-toggle-btn")
+    .forEach((btn) =>
+      btn.addEventListener("click", () => ThemeService.toggle()),
+    );
+
+  await loadCoins();
+
+  // Search Listener
+  document.querySelector("#coin-search")?.addEventListener("input", (e) => {
+    renderTable(filterCoins(e.target.value));
+  });
+
+  // Filter Pills
+  document.querySelectorAll(".filter-pill").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      document
+        .querySelectorAll(".filter-pill")
+        .forEach((b) => b.classList.remove("active"));
+      btn.classList.add("active");
+      activeFilter = btn.dataset.filter;
+      renderTable(filterCoins(document.querySelector("#coin-search").value));
     });
-};
-
-const filterData = (data, priceFilter, changeFilter, searchQuery) => {
-  return data.filter((coin) => {
-    if (priceFilter === "less" && coin.current_price > 10) {
-      return false;
-    }
-
-    if (priceFilter === "greater" && coin.current_price <= 10) {
-      return false;
-    }
-
-    if (priceFilter === "1usd" && Math.abs(coin.current_price - 1.0) > 0.01) {
-      return false;
-    }
-
-    if (changeFilter === "less" && coin.price_change_percentage_24h > 0) {
-      return false;
-    }
-
-    if (changeFilter === "greater" && coin.price_change_percentage_24h <= 0) {
-      return false;
-    }
-
-    if (
-      changeFilter === "nothing" &&
-      Math.abs(coin.price_change_percentage_24h) > 0.2
-    ) {
-      return false;
-    }
-
-    if (
-      searchQuery &&
-      !coin.name.toLowerCase().includes(searchQuery.toLowerCase())
-    ) {
-      return false;
-    }
-
-    return true;
-  });
-};
-
-const updateTable = async () => {
-  const table = document.getElementById("crypto-table");
-
-  const priceFilter = document.getElementById("price-filter").value;
-  const changeFilter = document.getElementById("change-filter").value;
-  const searchQuery = document.getElementById("search").value;
-
-  const data = await fetchCryptoPrices();
-
-  const filteredData = filterData(data, priceFilter, changeFilter, searchQuery);
-
-  const tbody = document.createElement("tbody");
-
-  filteredData.forEach((coin) => {
-    const row = document.createElement("tr");
-
-    const nameCell = document.createElement("td");
-    nameCell.innerText = coin.name;
-    row.appendChild(nameCell);
-
-    const imgCell = document.createElement("td");
-    const img = document.createElement("img");
-    img.src = coin.image;
-    img.alt = coin.name;
-    imgCell.appendChild(img);
-    row.appendChild(imgCell);
-
-    const priceCell = document.createElement("td");
-    priceCell.innerText = `₮ ${coin.current_price.toLocaleString()}`;
-    row.appendChild(priceCell);
-
-    const changeCell = document.createElement("td");
-    changeCell.innerText = `${coin.price_change_percentage_24h.toFixed(2)}%`;
-    row.appendChild(changeCell);
-
-    const marketCapCell = document.createElement("td");
-    marketCapCell.innerText = `₮ ${coin.market_cap.toLocaleString()}`;
-    row.appendChild(marketCapCell);
-
-    const volumeCell = document.createElement("td");
-    volumeCell.innerText = `₮ ${coin.total_volume.toLocaleString()}`;
-    row.appendChild(volumeCell);
-
-    tbody.appendChild(row);
   });
 
-  // oldTbody is used to check if there is an existing <tbody> element in the DOM.
-  // If it exists, the updated data will be added to the existing <tbody> element by replacing the old one with the new one.
-  // If it doesn't exist, a new <tbody> element is created and appended to the <table> element.
-  const oldTbody = table.querySelector("tbody");
-  if (oldTbody) {
-    table.replaceChild(tbody, oldTbody);
-  } else {
-    table.appendChild(tbody);
+  // Sorting
+  document.querySelectorAll("th[data-sort]").forEach((th) => {
+    th.addEventListener("click", () => {
+      const field = th.dataset.sort;
+      if (sortField === field) sortAsc = !sortAsc;
+      else {
+        sortField = field;
+        sortAsc = false;
+      }
+      renderTable(filterCoins(document.querySelector("#coin-search").value));
+    });
+  });
+
+  document.querySelector("#refresh-btn")?.addEventListener("click", loadCoins);
+});
+
+async function loadCoins() {
+  allCoins = await CryptoAPI.getTopCoins(true);
+  const tickerMount = document.querySelector("#ticker-mount");
+  if (tickerMount) TickerComponent.render(tickerMount, allCoins);
+  renderTable(filterCoins());
+}
+
+function filterCoins(query = "") {
+  let list = [...allCoins];
+  const q = query.trim().toLowerCase();
+  if (q)
+    list = list.filter(
+      (c) =>
+        c.symbol.toLowerCase().includes(q) || c.name.toLowerCase().includes(q),
+    );
+
+  if (activeFilter === "favorites") {
+    const watchlist = StorageManager.getWatchlist();
+    list = list.filter((c) => watchlist.includes(c.symbol));
+  } else if (activeFilter === "gainers") {
+    list = list.filter((c) => c.price_change_percentage_24h > 0);
+  } else if (activeFilter === "losers") {
+    list = list.filter((c) => c.price_change_percentage_24h < 0);
   }
-};
 
-const addEventListeners = () => {
-  document.getElementById("price-filter").addEventListener("change", () => {
-    updateTable();
+  const SORT_PROPERTY_MAP = {
+    price: "current_price",
+    change: "price_change_percentage_24h",
+  };
+  const propKey = SORT_PROPERTY_MAP[sortField] || sortField;
+
+  list.sort((a, b) => {
+    const v1 = a[propKey];
+    const v2 = b[propKey];
+    return sortAsc ? v1 - v2 : v2 - v1;
   });
 
-  document.getElementById("change-filter").addEventListener("change", () => {
-    updateTable();
+  return list;
+}
+
+function renderTable(coins) {
+  const tbody = document.querySelector("#market-table-body");
+  if (!tbody) return;
+  tbody.innerHTML = "";
+  const watchlist = StorageManager.getWatchlist();
+
+  coins.forEach((coin) => {
+    const isFav = watchlist.includes(coin.symbol);
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td><button class="fav-btn" data-symbol="${coin.symbol}" title="Toggle Watchlist">${isFav ? "⭐" : "☆"}</button></td>
+      <td style="display: flex; align-items: center; gap: 0.75rem;">
+        <img src="${coin.image}" width="28" height="28" style="border-radius:50%;" alt="${coin.name}" onerror="this.src='https://assets.coingecko.com/coins/images/1/small/bitcoin.png'">
+        <div>
+          <div style="font-weight:700;">${coin.symbol}</div>
+          <div style="font-size:0.8rem; color:var(--text-muted);">${coin.name}</div>
+        </div>
+      </td>
+      <td style="font-family:var(--font-mono); font-weight:600;">${formatCurrency(coin.current_price)}</td>
+      <td class="${coin.price_change_percentage_24h >= 0 ? "positive" : "negative"}" style="font-weight:600;">
+        ${formatPercent(coin.price_change_percentage_24h)}
+      </td>
+      <td style="font-size:0.85rem; color:var(--text-secondary);">${formatCurrency(coin.low_24h)} - ${formatCurrency(coin.high_24h)}</td>
+      <td>${formatNumber(coin.market_cap)}</td>
+      <td><canvas class="sparkline-canvas" width="100" height="32"></canvas></td>
+    `;
+
+    tbody.appendChild(tr);
+
+    // Render Canvas Sparkline
+    const canvas = tr.querySelector(".sparkline-canvas");
+    drawSparkline(
+      canvas,
+      coin.sparkline,
+      coin.price_change_percentage_24h >= 0,
+    );
+
+    // Watchlist listener
+    tr.querySelector(".fav-btn").addEventListener("click", (e) => {
+      e.stopPropagation();
+      StorageManager.toggleWatchlist(coin.symbol);
+      renderTable(filterCoins(document.querySelector("#coin-search").value));
+    });
+  });
+}
+
+function drawSparkline(canvas, data, isPositive) {
+  if (!canvas || !data || data.length === 0) return;
+  const ctx = canvas.getContext("2d");
+  const w = canvas.width;
+  const h = canvas.height;
+  ctx.clearRect(0, 0, w, h);
+
+  const min = Math.min(...data);
+  const max = Math.max(...data);
+  const range = max - min || 1;
+
+  ctx.beginPath();
+  data.forEach((val, i) => {
+    const x = (i / (data.length - 1)) * (w - 4) + 2;
+    const y = h - ((val - min) / range) * (h - 8) - 4;
+    if (i === 0) ctx.moveTo(x, y);
+    else ctx.lineTo(x, y);
   });
 
-  document.getElementById("search").addEventListener("input", () => {
-    updateTable();
-  });
-};
-
-const run = async () => {
-  await updateTable();
-
-  setInterval(updateTable, 10000);
-
-  addEventListeners();
-};
-
-run();
+  ctx.strokeStyle = isPositive ? "#10b981" : "#f43f5e";
+  ctx.lineWidth = 2;
+  ctx.stroke();
+}

@@ -1,135 +1,212 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Join Cryptocurrency Club — Onboarding Wizard</title>
+    <link rel="stylesheet" href="../styles/styles.css" />
+    <link rel="stylesheet" href="registration.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="nav-container">
+        <a href="../index.html" class="brand-logo">⚡ CryptoClub</a>
+        <nav>
+          <ul class="nav-links">
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../coins/coins.html">Markets</a></li>
+            <li><a href="../investment/investment.html">Investment</a></li>
+            <li><a href="../membership/membership.html">VIP Membership</a></li>
+          </ul>
+        </nav>
+        <div class="nav-actions">
+          <button class="icon-btn theme-toggle-btn">☀️</button>
+        </div>
+      </div>
+    </header>
 
-<head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Registration/Reservation</title>
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300&display=swap" rel="stylesheet">
-	<link rel="stylesheet"
-		href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
-	<link rel="stylesheet" href="../styles/styles.css">
-	<link rel="stylesheet" href="registration.css">
-</head>
+    <main style="max-width: 680px">
+      <div class="crypto-card">
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+          "
+        >
+          <span
+            id="step-indicator"
+            style="font-weight: 700; color: var(--accent-cyan)"
+            >Step 1 of 3: Account Profile</span
+          >
+        </div>
 
-<body>
-	<nav>
-		<ul class="border">
-			<li><a href="../index.html"><span class="material-symbols-outlined">home</span></a>
-				<div class="hovertext">Home</div>
-			</li>
-			<li><a href="../membership/membership.html"><span class="material-symbols-outlined">payments</span></a>
-				<div class="hovertext">Membership</div>
-			</li>
-			<li><a href="registration.html" class="active"><span class="material-symbols-outlined">how_to_reg</span></a>
-				<div class="hovertext">Registration</div>
-			</li>
-			<li class="news">
-				<a href="../news/news.html" id="news"><span class="material-symbols-outlined">
-						breaking_news_alt_1
-					</span></a>
-				<div class="hovertext">News</div>
-			</li>
-			<li class="investment">
-				<a href="../investment/investment.html" id="investment"><span class="material-symbols-outlined">
-						psychology_alt
-					</span></a>
-				<div class="hovertext">Investment</div>
-			</li>
-			<li class="coins">
-				<a href="../coins/coins.html" id="coin"><span
-						class="material-symbols-outlined">monetization_on</span></a>
-				<div class="hovertext">Coins</div>
-				<div class="coin-content">
-					<a href="https://www.tradingview.com/chart/hVd0XUIW/?symbol=BINANCE%3ABTCUSDTPERP"
-						target="_blank">Bitcoin</a>
-					<a href="https://www.tradingview.com/chart/hVd0XUIW/?symbol=BINANCE%3AETHUSDTPERP"
-						target="_blank">Ethereum</a>
-					<a href="https://www.tradingview.com/chart/hVd0XUIW/?symbol=BINANCE%3ALTCUSDTPERP"
-						target="_blank">Litecoin</a>
-					<a href="https://www.tradingview.com/chart/hVd0XUIW/?symbol=BINANCE%3AXRPUSDTPERP"
-						target="_blank">Ripple</a>
-				</div>
-			</li>
-			<li class="contact"><a href="../contact/contact.html"><span
-						class="material-symbols-outlined">contact_support</span></a>
-				<div class="hovertext">Contact</div>
-			</li>
-		</ul>
-	</nav>
-	<section id="registration">
-		<h1>Registration</h1>
-		<fieldset>
-			<legend>Sign Up</legend>
-			<form action="../confirmation/confirmation.html" method="get" autocomplete="on"
-				oninput="outcome.value=parseInt(invest.value)+parseInt(income.value)">
-				<label for="name" class="tooltip">Name: <span class="tooltiptext">Your first and last
-						name</span></label>
-				<input type="text" id="name" name="name" placeholder="Muster Mustermann" required autofocus><br>
-				<label for="email" class="tooltip">Email: <span class="tooltiptext">Only Gmail</span></label>
-				<input type="text" id="email" name="email" placeholder="muster@mustermann.com" required><br>
-				<label for="phone" class="tooltip">Phone: <span class="tooltiptext">Put a valid Phone
-						Number</span></label>
-				<input type="text" id="phone" name="phone" placeholder="123-456-789"><br>
-				<label for="date" class="tooltip">Date: <span class="tooltiptext">Put a valid Date</span></label>
-				<input type="date" id="date" name="date" required><br>
-				<label for="time" class="tooltip">Time: <span class="tooltiptext">Only afternoons</span></label>
-				<input type="time" id="time" name="time" required><br>
-				<label for="party-size" class="tooltip">Party Size: <span class="tooltiptext">Max. 5
-						persons</span></label>
-				<select id="party-size" name="party-size">
-					<option value="1">1 person</option>
-					<option value="2">2 people</option>
-					<option value="3">3 people</option>
-					<option value="4">4 people</option>
-					<option value="5">5 people</option>
-				</select><br>
-				<label class="tooltip">Trade Preferences: <span class="tooltiptext">Are you a trader or
-						holder?</span></label><br>
-				<input type="radio" id="trader" name="preference" value="Trader" onclick="myPreference()" required>
-				<label for="Trader">Trader</label><br>
-				<input type="radio" id="holder" name="preference" value="Holder" onclick="myPreference()" required>
-				<label for="Holder">Holder</label><br>
-				<input type="range" id="invest" name="type" value="0" required>
-				<label for="invest">Satisfaction of my Invest in %</label><br>
-				<input type="range" id="income" name="type2" value="0" required>
-				<label for="income">Satisfaction of my Income in %</label><br>
-				=
-				<output name="outcome" for="invest income">My Point</output>
-				<br>
-				<input type="checkbox" id="terms" name="terms" required>
-				<label for="terms" class="conditions"><mark><ins>I agree to the terms and
-							conditions</ins></mark></label><br>
-				<input type="checkbox" id="terms" name="terms">
-				<label for="terms"><ins>I agree to receive newsletter</ins></label><br>
-				<textarea name="message" rows="10" cols="30"
-					placeholder="Share with us your positive feedback &#128521"></textarea><br>
-				<input type="submit" value="Submit">
-				<input type="reset" value="Reset">
-			</form>
-		</fieldset>
-		<div class="mask1">
-			<pre class="ex">
-<small>
- Termly Inc is not a lawyer or a law firm and does not engage in the practice of law or provide legal advice or legal representation.
- All information, software, services, and comments provided on the site are for informational and self-help purposes only and are not intended to be a substitute for professional legal advice.
- Use of this site is subject to our Terms of Use.
+        <form id="wizard-form">
+          <!-- STEP 1: Personal Info -->
+          <div class="wizard-step" id="step-1">
+            <h2>Create Investor Profile</h2>
+            <div style="margin-bottom: 1rem">
+              <label
+                for="reg-name"
+                style="display: block; margin-bottom: 0.4rem"
+                >Full Name</label
+              >
+              <input
+                type="text"
+                id="reg-name"
+                name="name"
+                required
+                placeholder="Alex Mercer"
+                style="width: 100%"
+              />
+            </div>
+            <div style="margin-bottom: 1rem">
+              <label
+                for="reg-email"
+                style="display: block; margin-bottom: 0.4rem"
+                >Email Address</label
+              >
+              <input
+                type="email"
+                id="reg-email"
+                name="email"
+                required
+                placeholder="alex@domain.com"
+                style="width: 100%"
+              />
+            </div>
+            <div style="margin-bottom: 1.5rem">
+              <label
+                for="reg-experience"
+                style="display: block; margin-bottom: 0.4rem"
+                >Trading Background</label
+              >
+              <select id="reg-experience" name="experience" style="width: 100%">
+                <option value="beginner">Beginner (0 - 1 Year)</option>
+                <option value="intermediate">Intermediate (1 - 3 Years)</option>
+                <option value="advanced">Advanced Trader / Analyst</option>
+              </select>
+            </div>
+          </div>
 
- Cookies are small files containing information that a Web site uses to track its visitors.
- <span style="border: 1px solid black; background-color: white; color: red;"> Cryptocurrency Club </span> may set and Cryptocurrency Club cookies on your computer, enabling us to learn which advertisements and promotions bring users to our Web site.
- Cryptocurrency Club or any of its divisions may use cookies in connection with Cryptocurrency Club products and services to track your activities on our Web sites.
- Such information that we collect and share would be anonymous and not personally identifiable.
- 
- We may share personal information described above with our affiliates for business purposes, such as servicing customer accounts and informing customers about new products and services,
- and as permitted by applicable law. Our affiliates may include companies controlled or owned by us as well as companies that have an ownership interest in our company.
- The information we share with affiliates may include any of the information described above, such as your name, address, and account information.
- Our affiliates maintain the privacy of your information to the same Cryptocurrency Club does in accordance with this Policy.</small>
-				</pre>
-		</div>
-	</section>
-</body>
+          <!-- STEP 2: Risk Tolerance Questionnaire -->
+          <div class="wizard-step" id="step-2" style="display: none">
+            <h2>Investor Risk Profile Assessment</h2>
+            <p
+              style="
+                color: var(--text-secondary);
+                margin-bottom: 1rem;
+                font-size: 0.95rem;
+              "
+            >
+              How do you react if your crypto portfolio drops 20% in a single
+              week?
+            </p>
+            <div
+              style="
+                display: flex;
+                flex-direction: column;
+                gap: 0.75rem;
+                margin-bottom: 1.5rem;
+              "
+            >
+              <label class="option-card">
+                <input type="radio" name="risk_q1" value="1" required checked />
+                Panic and sell immediately (Conservative)
+              </label>
+              <label class="option-card">
+                <input type="radio" name="risk_q1" value="2" /> Hold and wait
+                for recovery (Balanced)
+              </label>
+              <label class="option-card">
+                <input type="radio" name="risk_q1" value="3" /> Buy the dip
+                aggressively (Aggressive Growth)
+              </label>
+            </div>
+          </div>
 
+          <!-- STEP 3: Membership Selection -->
+          <div class="wizard-step" id="step-3" style="display: none">
+            <h2>Select Membership Tier</h2>
+            <div
+              style="
+                background: var(--accent-green-bg);
+                color: var(--accent-green);
+                padding: 0.75rem 1rem;
+                border-radius: var(--radius-sm);
+                margin-bottom: 1rem;
+                font-weight: 600;
+              "
+            >
+              ✓ Recommended for you: Pro Trader Tier
+            </div>
+            <div
+              style="
+                display: flex;
+                flex-direction: column;
+                gap: 0.75rem;
+                margin-bottom: 1.5rem;
+              "
+            >
+              <label class="option-card">
+                <input
+                  type="radio"
+                  name="tier_choice"
+                  value="Starter"
+                  checked
+                />
+                <div>
+                  <strong>Starter Member</strong> (Free — Community signals)
+                </div>
+              </label>
+              <label class="option-card">
+                <input type="radio" name="tier_choice" value="Pro" />
+                <div>
+                  <strong>Pro Trader</strong> ($99/mo — DCA & Swing Strategies)
+                </div>
+              </label>
+              <label class="option-card">
+                <input type="radio" name="tier_choice" value="VIP" />
+                <div>
+                  <strong>VIP Institutional</strong> ($159/mo — 1-on-1
+                  Mentorship)
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Wizard Navigation Buttons -->
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              border-top: 1px solid var(--border-color);
+              padding-top: 1.25rem;
+            "
+          >
+            <button
+              type="button"
+              id="prev-btn"
+              class="icon-btn"
+              style="display: none"
+            >
+              ← Back
+            </button>
+            <button
+              type="button"
+              id="next-btn"
+              class="btn-primary"
+              style="margin-left: auto"
+            >
+              Continue →
+            </button>
+          </div>
+        </form>
+      </div>
+    </main>
+
+    <script type="module" src="registration.js"></script>
+  </body>
 </html>

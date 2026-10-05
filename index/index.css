@@ -1,67 +1,84 @@
+figure {
+  margin: 24px auto;
+  text-align: center;
+  max-width: 600px;
+}
+
+figure div {
+  font-size: clamp(1.6rem, 3.5vw, 2.5rem);
+  text-align: center;
+  margin-bottom: 16px;
+}
+
 img {
-    display: block;
-    margin: auto;
-    flex: 0 1 30em;
-    max-width: 30em;
-    height: 30em;
-    object-fit: cover;
-    border-radius: 50%;
-    border: 2px solid var(--border-color);
-    box-shadow: 0 20px 20px 0 rgba(0, 0, 0, 0.459), 0 50px 50px 0 rgba(0, 0, 0, 0.288);
+  display: block;
+  margin: 20px auto;
+  max-width: min(30em, 90vw);
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid var(--border-color, rgba(199, 83, 7, 0.48));
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+img:hover {
+  transform: scale(1.02);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
 }
 
 cite {
-    font-weight: bold;
-}
-
-h1 {
-    font-size: 46px;
-}
-
-div {
-    font-size: 2.5rem;
-    text-align: center;
-    text-decoration-thickness: auto;
+  font-weight: bold;
 }
 
 .crypto {
-    font-size: 2.5rem;
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s ease;
 }
 
 .crypto:hover {
-    font-size: 3rem;
-}
-
-a:link,
-a:visited {
-    text-decoration: none;
-}
-
-a:hover {
-    background-color: rgba(131, 96, 96, 0.205);
-    text-decoration: underline;
-}
-
-a:active {
-    color: rgba(211, 6, 6, 0.719);
+  color: var(--accent-color, #084aa1);
+  text-decoration: underline;
 }
 
 figcaption {
-    font-size: 1.5rem;
-    text-align: center;
+  font-size: 1.25rem;
+  text-align: center;
+  margin-top: 12px;
+  color: #333;
 }
 
 .what {
-    font-size: 2rem;
-    text-align: center;
-    font-weight: bold;
-    text-transform: uppercase;
-    border: 10px solid transparent;
-    padding: 15px;
-    border-image: url(https://www.pngall.com/wp-content/uploads/4/Golden-Border-PNG-HD-Image.png) 50 round;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  text-align: center;
+  font-weight: bold;
+  text-transform: uppercase;
+  border: 10px solid transparent;
+  padding: 15px;
+  border-image: url("https://www.pngall.com/wp-content/uploads/4/Golden-Border-PNG-HD-Image.png")
+    50 round;
+  margin: 24px auto;
+  max-width: 600px;
 }
 
 pre {
-    text-align: center;
-    font-size: 1.2rem;
+  text-align: center;
+  font-size: 1.15rem;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  font-family: inherit;
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 16px;
+  background-color: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-radius: var(--radius-md, 12px);
 }

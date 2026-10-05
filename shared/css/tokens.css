@@ -1,0 +1,405 @@
+/* ==========================================================================
+   FinTech Design System: Global Tokens & Variables
+   Cryptocurrency Club Portal
+   ========================================================================== */
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap");
+
+:root {
+  /* ------------------------------------------------------------------------
+     Typography
+     ------------------------------------------------------------------------ */
+  --font-sans:
+    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  --font-mono:
+    "JetBrains Mono", "Fira Code", Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+  --font-display: var(--font-sans);
+
+  --text-2xs: 0.6875rem; /* 11px */
+  --text-xs: 0.75rem; /* 12px */
+  --text-sm: 0.875rem; /* 14px */
+  --text-base: 1rem; /* 16px */
+  --text-lg: 1.125rem; /* 18px */
+  --text-xl: 1.25rem; /* 20px */
+  --text-2xl: 1.5rem; /* 24px */
+  --text-3xl: 1.875rem; /* 30px */
+  --text-4xl: 2.25rem; /* 36px */
+  --text-5xl: 3rem; /* 48px */
+
+  --weight-light: 300;
+  --weight-normal: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+  --weight-black: 800;
+
+  --leading-none: 1;
+  --leading-tight: 1.25;
+  --leading-snug: 1.375;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.625;
+
+  /* ------------------------------------------------------------------------
+     FinTech Semantic Colors (Constant across themes)
+     ------------------------------------------------------------------------ */
+  --color-bullish: #10b981;
+  --color-bullish-hover: #059669;
+  --color-bullish-subtle: rgba(16, 185, 129, 0.12);
+  --color-bullish-border: rgba(16, 185, 129, 0.35);
+
+  --color-bearish: #ef4444;
+  --color-bearish-hover: #dc2626;
+  --color-bearish-subtle: rgba(239, 68, 68, 0.12);
+  --color-bearish-border: rgba(239, 68, 68, 0.35);
+
+  --color-neutral: #64748b;
+  --color-neutral-subtle: rgba(100, 116, 139, 0.15);
+
+  --color-accent: #6366f1;
+  --color-accent-hover: #4f46e5;
+  --color-accent-active: #4338ca;
+  --color-accent-subtle: rgba(99, 102, 241, 0.14);
+  --color-accent-border: rgba(99, 102, 241, 0.35);
+
+  --color-warning: #f59e0b;
+  --color-warning-subtle: rgba(245, 158, 11, 0.14);
+  --color-warning-border: rgba(245, 158, 11, 0.35);
+
+  --color-info: #3b82f6;
+  --color-info-subtle: rgba(59, 130, 246, 0.14);
+  --color-info-border: rgba(59, 130, 246, 0.35);
+
+  /* ------------------------------------------------------------------------
+     Spacing & Layout
+     ------------------------------------------------------------------------ */
+  --space-0-5: 0.125rem; /* 2px */
+  --space-1: 0.25rem; /* 4px */
+  --space-1-5: 0.375rem; /* 6px */
+  --space-2: 0.5rem; /* 8px */
+  --space-2-5: 0.625rem; /* 10px */
+  --space-3: 0.75rem; /* 12px */
+  --space-4: 1rem; /* 16px */
+  --space-5: 1.25rem; /* 20px */
+  --space-6: 1.5rem; /* 24px */
+  --space-8: 2rem; /* 32px */
+  --space-10: 2.5rem; /* 40px */
+  --space-12: 3rem; /* 48px */
+  --space-16: 4rem; /* 64px */
+
+  --max-content-width: 1280px;
+
+  /* ------------------------------------------------------------------------
+     Radii
+     ------------------------------------------------------------------------ */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-2xl: 24px;
+  --radius-full: 9999px;
+  --radius-pill: 9999px;
+
+  /* ------------------------------------------------------------------------
+     Transitions & Motion
+     ------------------------------------------------------------------------ */
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --transition-fast: 150ms var(--ease-standard);
+  --transition-normal: 250ms var(--ease-standard);
+  --transition-slow: 350ms var(--ease-standard);
+
+  /* ------------------------------------------------------------------------
+     Z-Index Hierarchy
+     ------------------------------------------------------------------------ */
+  --z-base: 1;
+  --z-ticker: 90;
+  --z-header: 100;
+  --z-drawer: 200;
+  --z-modal-backdrop: 300;
+  --z-modal: 400;
+  --z-toast: 500;
+  --z-tooltip: 600;
+
+  /* ------------------------------------------------------------------------
+     Theme: Dark (Default)
+     ------------------------------------------------------------------------ */
+  --color-bg-primary: #0a0e17;
+  --color-bg-secondary: #0f172a;
+  --color-surface: #131d31;
+  --color-surface-hover: #1c273e;
+  --color-surface-glass: rgba(15, 23, 42, 0.78);
+  --color-surface-card: rgba(19, 29, 49, 0.85);
+
+  --color-border: rgba(255, 255, 255, 0.09);
+  --color-border-subtle: rgba(255, 255, 255, 0.05);
+  --color-border-strong: rgba(255, 255, 255, 0.18);
+
+  --color-text-primary: #f8fafc;
+  --color-text-secondary: #94a3b8;
+  --color-text-muted: #64748b;
+
+  --color-input-bg: rgba(15, 23, 42, 0.65);
+  --color-input-border: rgba(255, 255, 255, 0.12);
+  --color-input-border-focus: var(--color-accent);
+
+  --glass-bg: rgba(15, 23, 42, 0.75);
+  --glass-border: rgba(255, 255, 255, 0.09);
+  --glass-blur: 16px;
+  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.45);
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.25), 0 1px 2px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 4px 14px 0 rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 10px 30px -5px rgba(0, 0, 0, 0.5);
+  --shadow-xl: 0 20px 40px -10px rgba(0, 0, 0, 0.6);
+  --shadow-glow-accent: 0 0 24px rgba(99, 102, 241, 0.35);
+  --shadow-glow-bullish: 0 0 20px rgba(16, 185, 129, 0.3);
+  --shadow-glow-bearish: 0 0 20px rgba(239, 68, 68, 0.3);
+
+  /* Legacy variable bridges */
+  --primary-color: var(--color-accent);
+  --primary-hover: var(--color-accent-hover);
+  --accent-color: var(--color-accent);
+  --text-color: var(--color-text-primary);
+  --border-color: var(--color-border);
+  --background-color: var(--color-bg-primary);
+  --card-bg: var(--color-surface-card);
+}
+
+/* --------------------------------------------------------------------------
+   Theme: Explicit Dark
+   -------------------------------------------------------------------------- */
+[data-theme="dark"] {
+  --color-bg-primary: #0a0e17;
+  --color-bg-secondary: #0f172a;
+  --color-surface: #131d31;
+  --color-surface-hover: #1c273e;
+  --color-surface-glass: rgba(15, 23, 42, 0.78);
+  --color-surface-card: rgba(19, 29, 49, 0.85);
+
+  --color-border: rgba(255, 255, 255, 0.09);
+  --color-border-subtle: rgba(255, 255, 255, 0.05);
+  --color-border-strong: rgba(255, 255, 255, 0.18);
+
+  --color-text-primary: #f8fafc;
+  --color-text-secondary: #94a3b8;
+  --color-text-muted: #64748b;
+
+  --color-input-bg: rgba(15, 23, 42, 0.65);
+  --color-input-border: rgba(255, 255, 255, 0.12);
+  --color-input-border-focus: var(--color-accent);
+
+  --glass-bg: rgba(15, 23, 42, 0.75);
+  --glass-border: rgba(255, 255, 255, 0.09);
+  --glass-blur: 16px;
+  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.45);
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.25), 0 1px 2px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 4px 14px 0 rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 10px 30px -5px rgba(0, 0, 0, 0.5);
+  --shadow-xl: 0 20px 40px -10px rgba(0, 0, 0, 0.6);
+
+  /* Legacy bridges */
+  --primary-color: var(--color-accent);
+  --primary-hover: var(--color-accent-hover);
+  --accent-color: var(--color-accent);
+  --text-color: var(--color-text-primary);
+  --border-color: var(--color-border);
+  --background-color: var(--color-bg-primary);
+  --card-bg: var(--color-surface-card);
+}
+
+/* --------------------------------------------------------------------------
+   Theme: Light
+   -------------------------------------------------------------------------- */
+[data-theme="light"] {
+  color-scheme: light;
+
+  --color-bg-primary: #f8fafc;
+  --color-bg-secondary: #f1f5f9;
+  --color-surface: #ffffff;
+  --color-surface-hover: #f1f5f9;
+  --color-surface-glass: rgba(255, 255, 255, 0.85);
+  --color-surface-card: rgba(255, 255, 255, 0.92);
+
+  --color-border: rgba(0, 0, 0, 0.08);
+  --color-border-subtle: rgba(0, 0, 0, 0.04);
+  --color-border-strong: rgba(0, 0, 0, 0.16);
+
+  --color-text-primary: #0f172a;
+  --color-text-secondary: #475569;
+  --color-text-muted: #94a3b8;
+
+  --color-input-bg: rgba(255, 255, 255, 0.9);
+  --color-input-border: rgba(0, 0, 0, 0.14);
+  --color-input-border-focus: var(--color-accent);
+
+  --glass-bg: rgba(255, 255, 255, 0.82);
+  --glass-border: rgba(0, 0, 0, 0.08);
+  --glass-blur: 16px;
+  --glass-shadow: 0 8px 32px 0 rgba(15, 23, 42, 0.08);
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 14px 0 rgba(15, 23, 42, 0.08);
+  --shadow-lg: 0 10px 30px -5px rgba(15, 23, 42, 0.12);
+  --shadow-xl: 0 20px 40px -10px rgba(15, 23, 42, 0.15);
+
+  /* Legacy bridges */
+  --primary-color: var(--color-accent);
+  --primary-hover: var(--color-accent-hover);
+  --accent-color: var(--color-accent);
+  --text-color: var(--color-text-primary);
+  --border-color: var(--color-border);
+  --background-color: var(--color-bg-primary);
+  --card-bg: var(--color-surface-card);
+}
+
+/* --------------------------------------------------------------------------
+   Global Document Baseline & Typography Reset
+   -------------------------------------------------------------------------- */
+html {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: var(--leading-normal);
+  color-scheme: dark;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  font-family: var(--font-sans);
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-primary);
+  background-image:
+    radial-gradient(
+      ellipse 80% 50% at 50% -20%,
+      rgba(99, 102, 241, 0.12),
+      transparent
+    ),
+    radial-gradient(
+      ellipse 60% 40% at 100% 50%,
+      rgba(16, 185, 129, 0.06),
+      transparent
+    ),
+    radial-gradient(
+      ellipse 60% 40% at 0% 80%,
+      rgba(239, 68, 68, 0.04),
+      transparent
+    );
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  transition:
+    background-color var(--transition-normal),
+    color var(--transition-normal);
+}
+
+[data-theme="light"] body {
+  background-image:
+    radial-gradient(
+      ellipse 80% 50% at 50% -20%,
+      rgba(99, 102, 241, 0.08),
+      transparent
+    ),
+    radial-gradient(
+      ellipse 60% 40% at 100% 50%,
+      rgba(16, 185, 129, 0.04),
+      transparent
+    );
+}
+
+/* Modern Typography overrides for elements inheriting serif */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-sans);
+  color: var(--color-text-primary);
+  letter-spacing: -0.025em;
+  font-weight: var(--weight-bold);
+  line-height: var(--leading-tight);
+  text-shadow: none; /* override aggressive legacy glow */
+}
+
+h1 {
+  font-size: clamp(1.875rem, 4vw, 2.75rem);
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+h2 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  margin-top: 1.25rem;
+  margin-bottom: 0.75rem;
+}
+
+h3 {
+  font-size: 1.25rem;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  color: var(--color-text-secondary);
+  line-height: var(--leading-relaxed);
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+code,
+pre,
+kbd,
+samp {
+  font-family: var(--font-mono);
+}
+
+/* Glassmorphism utility classes */
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  border-radius: var(--radius-lg);
+}
+
+.bullish-text {
+  color: var(--color-bullish) !important;
+}
+
+.bearish-text {
+  color: var(--color-bearish) !important;
+}
+
+.mono-num {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Responsive Breakpoints Helper Rules */
+@media (max-width: 639px) {
+  .hide-on-mobile {
+    display: none !important;
+  }
+}
+
+@media (min-width: 640px) and (max-width: 1023px) {
+  .hide-on-tablet {
+    display: none !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hide-on-desktop {
+    display: none !important;
+  }
+}
